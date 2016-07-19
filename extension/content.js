@@ -1,5 +1,5 @@
-var news = document.querySelector('.news');
-var fromHTMLHelper = document.createElement('div');
+const news = document.querySelector('.news');
+const fromHTMLHelper = document.createElement('div');
 function fromHTML(html, all) {
 	fromHTMLHelper.innerHTML = html;
 	if (all) {
@@ -18,8 +18,8 @@ function prependChild(parent, child) {
 	parent.insertBefore(child, parent.firstChild);
 }
 function groupRepos(selector, title) {
-	var events = Array.from(document.querySelectorAll(selector));
-	var map = events.reduce((repos, item) => {
+	const events = Array.from(document.querySelectorAll(selector));
+	const map = events.reduce((repos, item) => {
 		const user = item.querySelector('.title a:nth-child(1)').textContent;
 		const repo = item.querySelector('.title a:nth-child(2)').textContent;
 		if (!repos.has(repo)) {
@@ -29,12 +29,12 @@ function groupRepos(selector, title) {
 		return repos;
 	}, new Map());
 	if (map.size) {
-		var groupEl = fromHTML(`
+		const groupEl = fromHTML(`
 			<div class="boxed-group flush">
 				<h3>${title}</h3>
 				<ul class="boxed-group-inner mini-repo-list"></ul>
 			</div>`);
-		var listEl = groupEl.querySelector('.mini-repo-list');
+		const listEl = groupEl.querySelector('.mini-repo-list');
 		map.forEach((users, repoUrl) => {
 			const [owner, repo] = repoUrl.split('/');
 			listEl.appendChild(fromHTML(`
@@ -58,7 +58,7 @@ function groupRepos(selector, title) {
 function init() {
 	groupRepos('.alert.fork', 'Forked repositories');
 	groupRepos('.watch_started', 'Starred repositories');
-	var accountSwitcher = document.querySelector('.account-switcher');
+	const accountSwitcher = document.querySelector('.account-switcher');
 	if (accountSwitcher) {
 		prependChild(news, accountSwitcher);
 	}
