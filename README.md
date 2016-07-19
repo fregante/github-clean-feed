@@ -2,7 +2,7 @@
 
 > Browser Extension: Group news feed by repo
 
-![Screenshot](screenshot.png)
+<img src="screenshot.png" width="480px" alt="Screenshot">
 
 ## Chrome
 
