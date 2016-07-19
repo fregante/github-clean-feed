@@ -2,6 +2,8 @@
 
 > Browser Extension: Group news feed by repo
 
+It adds a list of the starred repositories above the news feed, without replacing it
+
 <img src="screenshot.png" width="480px" alt="Screenshot">
 
 ## Chrome
