@@ -2,7 +2,13 @@
 
 > Browser Extension: Group news feed by repo
 
-It adds a list of the starred repositories above the news feed, without replacing it
+It adds a list of the starred+forked repositories above the news feed, without replacing it.
+
+Currently it only:
+
+* Groups new stars
+* Groups new forks
+* Applies to items on the first page of the news feed
 
 <img src="screenshot.png" width="480px" alt="Screenshot">
 
