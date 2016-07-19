@@ -1,4 +1,4 @@
-const news = document.querySelector('.news');
+const newsFeed = document.querySelector('.news');
 const fromHTMLHelper = document.createElement('div');
 function fromHTML(html, all) {
 	fromHTMLHelper.innerHTML = html;
@@ -14,10 +14,8 @@ function usersHTML(users) {
 	.map(user => `<a href="/${user}" style="color:inherit">${user}</a>`)
 	.join(', ');
 }
-function prependChild(parent, child) {
-	parent.insertBefore(child, parent.firstChild);
-}
-function groupRepos(selector, title) {
+
+function groupRepos(selector, title, spawnPoint) {
 	const events = Array.from(document.querySelectorAll(selector));
 	const map = events.reduce((repos, item) => {
 		const user = item.querySelector('.title a:nth-child(1)').textContent;
@@ -50,17 +48,20 @@ function groupRepos(selector, title) {
 				</div>
 			</li>`));
 		});
-		prependChild(news, groupEl);
+		spawnPoint.appendChild(groupEl);
 		events.forEach(event => event.remove());
 	}
 }
 
 function init() {
-	groupRepos('.alert.fork', 'Forked repositories');
-	groupRepos('.watch_started', 'Starred repositories');
+	const spawnPoint = document.createElement('div');
+	groupRepos('.alert.watch_started', 'Starred repositories', spawnPoint);
+	groupRepos('.alert.fork', 'Forked repositories', spawnPoint);
 	const accountSwitcher = document.querySelector('.account-switcher');
 	if (accountSwitcher) {
-		prependChild(news, accountSwitcher);
+		newsFeed.insertBefore(spawnPoint, newsFeed.children[1]);
+	} else {
+		newsFeed.insertBefore(spawnPoint, newsFeed.firstChild);
 	}
 }
 
