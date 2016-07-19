@@ -18,7 +18,7 @@ https://chrome.google.com/webstore/detail/github-grouped-news/failppjoidijbialkn
 
 ## Firefox
 
-It's a [Web Extension](http://arewewebextensionsyet.com/). You can install it by loading the `manifest.json` from the page `about:debugging`
+Technically it's a [Web Extension](http://arewewebextensionsyet.com/), but it's untested. You can install it by loading the `manifest.json` from the page `about:debugging` and contribute if it doesn't work.
 
 ## Opera
 
