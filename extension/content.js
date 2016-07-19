@@ -18,7 +18,8 @@ function prependChild(parent, child) {
 	parent.insertBefore(child, parent.firstChild);
 }
 function groupRepos(selector, title) {
-	var map = Array.from(document.querySelectorAll(selector)).reduce((repos, item) => {
+	var events = Array.from(document.querySelectorAll(selector));
+	var map = events.reduce((repos, item) => {
 		const user = item.querySelector('.title a:nth-child(1)').textContent;
 		const repo = item.querySelector('.title a:nth-child(2)').textContent;
 		if (!repos.has(repo)) {
@@ -50,6 +51,7 @@ function groupRepos(selector, title) {
 			</li>`));
 		});
 		prependChild(news, groupEl);
+		events.forEach(event => event.remove());
 	}
 }
 
