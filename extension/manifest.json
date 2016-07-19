@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+    "name": "GitHub Grouped News",
+    "description": "Group news feed by repo",
+    "version": "1.0.0",
+    "author": "Federico Brigante",
+    "permissions": [
+        "https://github.com/*"
+    ],
+    "applications": {
+        "gecko": {
+            "id": "github-grouped-news@bfred.it",
+            "strict_min_version": "45.0"
+        }
+    },
+    "background": {
+        "scripts": [
+            "enable-all-current-tabs.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://github.com/",
+                "https://github.com/orgs/*/dashboard"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ]
+}
