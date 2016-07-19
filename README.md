@@ -8,6 +8,10 @@ Currently it only:
 * Groups new forks
 * Applies to items on the first page of the news feed
 
+Optionally:
+
+* The new boxes appear in the sidebar
+
 Ungrouped events will stay in the list below the groups.
 
 <img src="screenshot.png" width="480px" alt="Screenshot">
