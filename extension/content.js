@@ -51,18 +51,20 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsD
 	map.forEach((actors, repoUrl) => {
 		const [owner, repo] = repoUrl.split('/');
 		listEl.appendChild(fromHTML(`
-			<li class="public source mini-repo-list-item ghgn-actors-${actorsDisplay}">
-				<a href="/${repoUrl}" class="css-truncate">
-					${iconRepo}
-					<span class="repo-and-owner css-truncate-target">
-						<span class="owner css-truncate-target">${owner}</span>/<span class="repo">${repo}</span>
+			<li class="public source ghgn-actors-${actorsDisplay}">
+				<div class="mini-repo-list-item">
+					<a href="/${repoUrl}" class="css-truncate">
+						${iconRepo}
+						<span class="repo-and-owner css-truncate-target">
+							<span class="owner css-truncate-target">${owner}</span>/<span class="repo">${repo}</span>
+						</span>
+					</a>
+					<span class="stars ghgn-stars">
+						${actors.size > 1 ? actors.size : ''}
+						${icon}
 					</span>
-				</a>
-				<span class="stars ghgn-stars">
-					${actors.size > 1 ? actors.size : ''}
-					${icon}
-				</span>
-				<div class="ghgn-actors">${actorsDisplay === 'none' ? '' : actorsHTML(actors)}</div>
+					<div class="ghgn-actors">${actorsDisplay === 'none' ? '' : actorsHTML(actors)}</div>
+				</div>
 			</li>
 		`));
 	});
