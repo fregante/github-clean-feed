@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - 'node'
 env:
-  - EXTENSION_ID=failppjoidijbialknplliogdmabniaf
+  global:
+    - EXTENSION_ID=failppjoidijbialknplliogdmabniaf
 deploy:
   provider: script
   script: npm run release

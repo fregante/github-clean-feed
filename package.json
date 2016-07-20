@@ -12,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "test": "xo",
-    "release": "webstore upload --source=. --auto-publish"
+    "release": "webstore upload --source=extension --auto-publish"
   },
   "xo": {
     "esnext": true,
