@@ -118,6 +118,12 @@ function init(options) {
 		action: options.branches,
 	});
 
+	// possibly hide pushed commits
+	groupRepos({
+		elements: '.alert.push',
+		action: options.commits,
+	});
+
 	// add spawn points to document
 	const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');
 	firstSideBox.parentNode.insertBefore(sidebarHolder, firstSideBox);
