@@ -1,18 +1,19 @@
 // include this as a background script
-// it will automatically load content_scripts on all current tabs
-// But no stylesheeds yet
+// it will automatically load content_scripts/styles on all current tabs
+// FIX: it will load them regardless of whether they've been previously loaded
 (function enableAllCurrentTabs() {
+	const showErrors = () => {
+		if (chrome.runtime.lastError) {
+			console.error(chrome.runtime.lastError);
+		}
+	};
 	chrome.runtime.getManifest().content_scripts.forEach(script => {
 		const loadContentScripts = tab => {
-			script.js.forEach(file => {
+			script.js.concat(script.css).forEach(file => {
 				chrome.tabs.executeScript(tab.id, {
 					allFrames: script.all_frames,
 					file
-				}, () => {
-					if (chrome.runtime.lastError) {
-						console.error(chrome.runtime.lastError);
-					}
-				});
+				}, showErrors);
 			});
 		};
 		chrome.tabs.query({
