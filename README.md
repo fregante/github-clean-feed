@@ -2,22 +2,21 @@
 
 > Browser Extension: Group news feed by repo
 
-Currently it:
+Every part is optional:
 
 - Groups new stars
 - Groups new forks
 - Groups new repos and newly-public repos
-- Only applies to items on the first page of the news feed
+- Hides branch creation/deletion
+- Hides new commits
 
-Optionally:
+Note: It only applies to items on the first page of the news feed for now
 
-- Move certain groups to the sidebar
-- Hide certain events
-- Always show/hide who starred the repos
-
-Ungrouped events will stay in the list below the groups.
+Untouched/ungrouped events remain in the main feed.
 
 <img src="screenshot.png" width="480px" alt="Screenshot">
+
+<img src="screenshot-options.png" height="480px" alt="Options screenshot">
 
 ## Chrome
 
