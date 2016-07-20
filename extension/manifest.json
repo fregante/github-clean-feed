@@ -16,7 +16,8 @@
     },
     "background": {
         "scripts": [
-            "enable-all-current-tabs.js"
+            "enable-all-current-tabs.js",
+            "options-defaults.js"
         ]
     },
     "options_ui": {
