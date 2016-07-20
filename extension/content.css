@@ -3,6 +3,13 @@
 }
 
 /**
+ * Keep a distance with the existing feed events
+ */
+.alert + .ghgn-holder {
+	margin-top: 20px;
+}
+
+/**
  * Don't truncate text in the main feed
  */
 .news .ghgn-group .css-truncate-target {

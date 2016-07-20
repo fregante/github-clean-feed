@@ -10,8 +10,6 @@ Every part is optional:
 - Hides branch creation/deletion
 - Hides new commits
 
-Note: It only applies to items on the first page of the news feed for now
-
 Untouched/ungrouped events remain in the main feed.
 
 ![Screenshot](screenshot.png)

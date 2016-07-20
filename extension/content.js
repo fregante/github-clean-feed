@@ -74,9 +74,9 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsD
 	events.forEach(event => event.remove());
 }
 
-function init(options) {
-	const sidebarHolder = document.createElement('div');
-	const mainHolder = document.createElement('div');
+function apply(options) {
+	const sidebarHolder = fromHTML('<div class="ghgn-holder">');
+	const mainHolder = fromHTML('<div class="ghgn-holder">');
 
 	// handle stars
 	groupRepos({
@@ -127,12 +127,40 @@ function init(options) {
 	});
 
 	// add spawn points to document
-	const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');
-	firstSideBox.parentNode.insertBefore(sidebarHolder, firstSideBox);
+	if (sidebarHolder.children.length) {
+		const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');
+		firstSideBox.parentNode.insertBefore(sidebarHolder, firstSideBox);
+	}
 
-	const newsFeed = document.querySelector('.news');
-	const accountSwitcher = document.querySelector('.account-switcher');
-	newsFeed.insertBefore(mainHolder, newsFeed.children[accountSwitcher ? 1 : 0]);
+	if (mainHolder.children.length) {
+		const newsFeed = document.querySelector('#dashboard .news');
+		if (options.insertionPoint) {
+			newsFeed.insertBefore(mainHolder, options.insertionPoint);
+		} else {
+			const accountSwitcher = document.querySelector('.account-switcher');
+			newsFeed.insertBefore(mainHolder, newsFeed.children[accountSwitcher ? 1 : 0]);
+		}
+	}
 }
 
+function init(options) {
+	const newsFeed = document.querySelector('#dashboard .news');
+	apply(options);
+
+	// adjust options for future updates
+	for (const name of Object.keys(options)) {
+		if (options[name] === 'group-sidebar') {
+			options[name] = 'group';
+		}
+	}
+
+	// track future updates
+	const observer = new MutationObserver(([{addedNodes}]) => {
+		observer.disconnect(); // disable to prevent loops
+		options.insertionPoint = addedNodes[0]; // add boxes before the first new element
+		apply(options);
+		observer.observe(newsFeed, {childList: true});
+	});
+	observer.observe(newsFeed, {childList: true});
+}
 chrome.storage.sync.get(init);
