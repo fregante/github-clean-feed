@@ -38,6 +38,21 @@
 </style>
 
 <form id="options-form">
+    <h3>List users who starred, forked, ... the repos</h3>
+    <div class="one-line-labels">
+        <label>
+            <input name="actors" type="radio" value="always">
+            Always
+        </label>
+        <label>
+            <input name="actors" type="radio" value="hover">
+            When hovering the icon
+        </label>
+        <label>
+            <input name="actors" type="radio" value="none">
+            No
+        </label>
+    </div>
     <h3>Starred repositories</h3>
     <div class="one-line-labels">
         <label>
@@ -50,7 +65,7 @@
         </label>
         <label>
             <input name="starredRepos" type="radio" value="hide">
-            Hide
+            Hidden
         </label>
         <label>
             <input name="starredRepos" type="radio" value="off">
@@ -70,7 +85,7 @@
         </label>
         <label>
             <input name="forkedRepos" type="radio" value="hide">
-            Hide
+            Hidden
         </label>
         <label>
             <input name="forkedRepos" type="radio" value="off">
@@ -90,27 +105,11 @@
         </label>
         <label>
             <input name="newRepos" type="radio" value="hide">
-            Hide
+            Hidden
         </label>
         <label>
             <input name="newRepos" type="radio" value="off">
             Untouched
-        </label>
-    </div>
-
-    <h3>Show event actors (who starred, forked, ...)</h3>
-    <div class="one-line-labels">
-        <label>
-            <input name="actors" type="radio" value="always">
-            Always
-        </label>
-        <label>
-            <input name="actors" type="radio" value="hover">
-            When hovering the icon
-        </label>
-        <label>
-            <input name="actors" type="radio" value="none">
-            No
         </label>
     </div>
 </form>
