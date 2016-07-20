@@ -2,7 +2,8 @@
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.storage.sync.get(existingOptions => {
 		const defaults = {
-			useSidebar: false,
+			starredReposInSidebar: false,
+			forkedReposInSidebar: false,
 			stargazers: 'hover',
 			starredRepos: 'group',
 			forkedRepos: 'group'

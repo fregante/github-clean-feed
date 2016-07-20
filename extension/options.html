@@ -27,15 +27,14 @@
 
 <form id="options-form">
     <h3>Display</h3>
-    <label>
-        <input name="useSidebar" type="checkbox">
-        Use sidebar
-    </label>
-
     <h3>Starred repositories</h3>
     <label>
         <input name="starredRepos" type="radio" value="group">
-        Group
+        Group in main feed
+    </label>
+    <label>
+        <input name="starredRepos" type="radio" value="group-sidebar">
+        Group in sidebar
     </label>
     <label>
         <input name="starredRepos" type="radio" value="hide">
@@ -49,7 +48,11 @@
     <h3>Forked repositories</h3>
     <label>
         <input name="forkedRepos" type="radio" value="group">
-        Group
+        Group in main feed
+    </label>
+    <label>
+        <input name="forkedRepos" type="radio" value="group-sidebar">
+        Group in sidebar
     </label>
     <label>
         <input name="forkedRepos" type="radio" value="hide">

@@ -18,7 +18,7 @@ function removeElements(selector) {
 	Array.from(document.querySelectorAll(selector)).forEach(event => event.remove());
 }
 
-function groupRepos({selector, title, spawnPoint, stargazers}) {
+function groupRepos({selector, title, holder, stargazers}) {
 	const events = Array.from(document.querySelectorAll(selector));
 	const map = events.reduce((repos, item) => {
 		const user = item.querySelector('.title a:nth-child(1)').textContent;
@@ -55,44 +55,55 @@ function groupRepos({selector, title, spawnPoint, stargazers}) {
 				</div>
 			</li>`));
 		});
-		spawnPoint.appendChild(groupEl);
+		holder.appendChild(groupEl);
 		events.forEach(event => event.remove());
 	}
 }
 
 function init(options) {
-	const spawnPoint = document.createElement('div');
-	if (options.starredRepos === 'hide') {
-		removeElements('.alert.watch_started');
-	} else if (options.starredRepos === 'group') {
-		groupRepos({
-			selector: '.alert.watch_started',
-			title: 'Starred repositories',
-			spawnPoint,
-			stargazers: options.stargazers
-		});
-	}
-	if (options.forkedRepos === 'hide') {
-		removeElements('.alert.fork');
-	} else if (options.forkedRepos === 'group') {
-		groupRepos({
-			selector: '.alert.fork',
-			title: 'Forked repositories',
-			spawnPoint,
-			stargazers: options.stargazers
-		});
-	}
-	if (options.useSidebar) {
-		const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');
-		firstSideBox.parentNode.insertBefore(spawnPoint, firstSideBox);
-	} else {
-		const accountSwitcher = document.querySelector('.account-switcher');
-		if (accountSwitcher) {
-			newsFeed.insertBefore(spawnPoint, newsFeed.children[1]);
-		} else {
-			newsFeed.insertBefore(spawnPoint, newsFeed.firstChild);
+	const sidebarHolder = document.createElement('div');
+	const mainHolder = document.createElement('div');
+
+	// handle stars
+	switch (options.starredRepos) {
+		case 'hide':
+			removeElements('.alert.watch_started');
+			break;
+		case 'off':
+			break;
+		default: {
+			groupRepos({
+				selector: '.alert.watch_started',
+				title: 'Starred repositories',
+				holder: options.starredRepos === 'group-sidebar' ? sidebarHolder : mainHolder,
+				stargazers: options.stargazers
+			});
 		}
 	}
+
+	// handle forks
+	switch (options.forkedRepos) {
+		case 'hide':
+			removeElements('.alert.fork');
+			break;
+		case 'off':
+			break;
+		default: {
+			groupRepos({
+				selector: '.alert.fork',
+				title: 'Forked repositories',
+				holder: options.forkedRepos === 'group-sidebar' ? sidebarHolder : mainHolder,
+				stargazers: options.stargazers
+			});
+		}
+	}
+
+	// add spawn points to document
+	const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');
+	firstSideBox.parentNode.insertBefore(sidebarHolder, firstSideBox);
+
+	const accountSwitcher = document.querySelector('.account-switcher');
+	newsFeed.insertBefore(mainHolder, newsFeed.children[accountSwitcher ? 1 : 0]);
 }
 
 chrome.storage.sync.get(init);
