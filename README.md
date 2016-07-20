@@ -9,6 +9,7 @@ Every part is optional:
 - Groups new repos and newly-public repos
 - Hides branch creation/deletion
 - Hides new commits
+- Hides "collaborator added" events
 
 Untouched/ungrouped events remain in the main feed.
 

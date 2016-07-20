@@ -126,6 +126,12 @@ function apply(options) {
 		action: options.commits,
 	});
 
+	// possibly hide collaborator events
+	groupRepos({
+		elements: '.alert.member_add',
+		action: options.collaborators,
+	});
+
 	// add spawn points to document
 	if (sidebarHolder.children.length) {
 		const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');

@@ -8,6 +8,7 @@ chrome.runtime.onInstalled.addListener(() => {
 			newRepos: 'group',
 			branches: 'hide',
 			commits: 'hide',
+			collaborators: 'hide',
 		};
 		const newOptions = Object.assign(defaults, existingOptions);
 		chrome.storage.sync.set(newOptions);
