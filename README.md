@@ -13,6 +13,10 @@ Every part is optional:
 
 Untouched/ungrouped events remain in the main feed.
 
+In the future:
+
+- Organize comments, issues, PRs
+
 ![Screenshot](screenshot.png)
 
 ![Options screenshot](screenshot-options.png)
