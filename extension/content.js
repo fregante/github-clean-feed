@@ -84,7 +84,7 @@ function init(options) {
 		actorsDisplay: options.actors,
 		icon: iconStar,
 		sidebarHolder,
-		mainHolder
+		mainHolder,
 	});
 
 	// handle forks
@@ -95,7 +95,7 @@ function init(options) {
 		actorsDisplay: options.actors,
 		icon: iconFork,
 		sidebarHolder,
-		mainHolder
+		mainHolder,
 	});
 
 	// new/public repos (new branches are `.alert.create` too)
@@ -107,7 +107,7 @@ function init(options) {
 		action: options.newRepos,
 		actorsDisplay: 'none',
 		sidebarHolder,
-		mainHolder
+		mainHolder,
 	});
 
 	// add spawn points to document

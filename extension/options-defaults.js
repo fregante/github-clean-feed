@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener(() => {
 			actors: 'hover',
 			starredRepos: 'group',
 			forkedRepos: 'group',
-			newRepos: 'group'
+			newRepos: 'group',
 		};
 		const newOptions = Object.assign(defaults, existingOptions);
 		chrome.storage.sync.set(newOptions);

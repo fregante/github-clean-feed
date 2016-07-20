@@ -10,7 +10,7 @@ function handleInputUpdates(e) {
 	}
 	// console.info('Saving option', el.name, 'to', value);
 	chrome.storage.sync.set({
-		[name]: value
+		[name]: value,
 	});
 }
 document.body.addEventListener('input', handleInputUpdates);

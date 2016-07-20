@@ -12,12 +12,12 @@
 			script.js.concat(script.css).forEach(file => {
 				chrome.tabs.executeScript(tab.id, {
 					allFrames: script.all_frames,
-					file
+					file,
 				}, showErrors);
 			});
 		};
 		chrome.tabs.query({
-			url: script.matches
+			url: script.matches,
 		}, tabs => {
 			tabs.forEach(loadContentScripts);
 		});

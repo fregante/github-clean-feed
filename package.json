@@ -24,7 +24,8 @@
       "node_modules/**"
     ],
     "rules": {
-      "prefer-template": 0
+      "prefer-template": 0,
+      "comma-dangle": ["error", "always-multiline"]
     }
   }
 }
