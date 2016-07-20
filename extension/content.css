@@ -1,0 +1,3 @@
+.ghgn-stargazers-hover:not(:hover) .ghgn-stargazers {
+	display: none;
+}

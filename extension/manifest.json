@@ -29,6 +29,9 @@
                 "https://github.com/",
                 "https://github.com/orgs/*/dashboard"
             ],
+            "css": [
+                "content.css"
+            ],
             "js": [
                 "content.js"
             ],
