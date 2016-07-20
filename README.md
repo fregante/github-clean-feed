@@ -14,9 +14,9 @@ Note: It only applies to items on the first page of the news feed for now
 
 Untouched/ungrouped events remain in the main feed.
 
-<img src="screenshot.png" width="480px" alt="Screenshot">
+![Screenshot](screenshot.png)
 
-<img src="screenshot-options.png" height="480px" alt="Options screenshot">
+![Options screenshot](screenshot-options.png)
 
 ## Chrome
 
