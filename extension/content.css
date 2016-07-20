@@ -1,3 +1,27 @@
-.ghgn-stargazers-hover:not(:hover) .ghgn-stargazers {
+/**
+ * Only show stargazers when hovering the star
+ * This also uses a hidden overlay to keep them visible when hovering the entire block afterwards
+ */
+.ghgn-stargazers-hover {
+	position: relative;
+}
+.ghgn-stargazers-hover .ghgn-stargazers {
 	display: none;
+}
+.ghgn-stargazers-hover .ghgn-stars:hover + .ghgn-stargazers,
+.ghgn-stargazers-hover .ghgn-stargazers:hover {
+	display: block;
+}
+
+/*  the hoverlay */
+.ghgn-stargazers-hover .ghgn-stargazers:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+}
+.ghgn-stargazers-hover .ghgn-stargazers a {
+	position: relative; /* keep the links on top */
 }

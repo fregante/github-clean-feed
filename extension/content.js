@@ -49,11 +49,11 @@ function groupRepos({selector, title, holder, stargazers}) {
 						<span class="repo-and-owner css-truncate-target">
 							<span class="owner css-truncate-target">${owner}</span>/<span class="repo">${repo}</span>
 						</span>
-						<span class="stars">
-							${users.size > 1 ? users.size : ''}
-							${iconStar}
-						</span>
 					</a>
+					<span class="stars ghgn-stars">
+						${users.size > 1 ? users.size : ''}
+						${iconStar}
+					</span>
 					<div class="ghgn-stargazers">${stargazers === 'none' ? '' : usersHTML(users)}</div>
 				</div>
 			</li>`));
