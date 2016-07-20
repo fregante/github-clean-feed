@@ -2,8 +2,8 @@
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.storage.sync.get(existingOptions => {
 		const defaults = {
-			'use-sidebar': false,
-			'stargazers': 'hover'
+			useSidebar: false,
+			stargazers: 'hover',
 		};
 		const newOptions = Object.assign(defaults, existingOptions);
 		chrome.storage.sync.set(newOptions);

@@ -61,7 +61,7 @@ function init(options) {
 	const spawnPoint = document.createElement('div');
 	groupRepos('.alert.watch_started', 'Starred repositories', spawnPoint, options);
 	groupRepos('.alert.fork', 'Forked repositories', spawnPoint, options);
-	if (options['use-sidebar']) {
+	if (options.useSidebar) {
 		const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');
 		firstSideBox.parentNode.insertBefore(spawnPoint, firstSideBox);
 	} else {
