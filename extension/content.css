@@ -1,3 +1,7 @@
+.ghgn-actors a {
+	color: inherit;
+}
+
 /**
  * Don't truncate text in the main feed
  */
