@@ -12,6 +12,9 @@
     input {
         font: inherit;
     }
+    h3:not(:first-child) {
+        margin-top: 2em;
+    }
     footer {
         font-style: italic;
         font-size: 0.8em;
@@ -21,9 +24,11 @@
         color: inherit;
     }
 </style>
+
 <form id="options-form">
+    <h3>Stars and forks</h3>
     <label>
-        <input id="use-sidebar" type="checkbox">
+        <input name="use-sidebar" type="checkbox">
         Use sidebar
     </label>
 </form>
