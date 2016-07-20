@@ -1,4 +1,11 @@
 /**
+ * Don't truncate text in the main feed
+ */
+.news .ghgn-group .css-truncate-target {
+	max-width: none;
+}
+
+/**
  * Only show actors when hovering the star
  * This also uses a hidden overlay to keep them visible when hovering the entire block afterwards
  */
@@ -25,3 +32,4 @@
 .ghgn-actors-hover .ghgn-actors a {
 	position: relative; /* keep the links on top */
 }
+

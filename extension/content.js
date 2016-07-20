@@ -47,7 +47,7 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actors,
 	}, new Map());
 	if (map.size) {
 		const groupEl = fromHTML(`
-			<div class="boxed-group flush">
+			<div class="boxed-group flush ghgn-group">
 				<h3>${title}</h3>
 				<ul class="boxed-group-inner mini-repo-list"></ul>
 			</div>`);
