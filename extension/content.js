@@ -110,6 +110,14 @@ function init(options) {
 		mainHolder,
 	});
 
+	// possibly hide new/deleted branches
+	const newBranches = selectAll('.alert.create .octicon-git-branch').map(icon => icon.parentNode.parentNode.parentNode);
+	const deletedBranches = selectAll('.alert.delete');
+	groupRepos({
+		elements: newBranches.concat(deletedBranches),
+		action: options.branches,
+	});
+
 	// add spawn points to document
 	const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');
 	firstSideBox.parentNode.insertBefore(sidebarHolder, firstSideBox);
