@@ -1,20 +1,20 @@
 /**
- * Only show stargazers when hovering the star
+ * Only show actors when hovering the star
  * This also uses a hidden overlay to keep them visible when hovering the entire block afterwards
  */
-.ghgn-stargazers-hover {
+.ghgn-actors-hover {
 	position: relative;
 }
-.ghgn-stargazers-hover .ghgn-stargazers {
+.ghgn-actors-hover .ghgn-actors {
 	display: none;
 }
-.ghgn-stargazers-hover .ghgn-stars:hover + .ghgn-stargazers,
-.ghgn-stargazers-hover .ghgn-stargazers:hover {
+.ghgn-actors-hover .ghgn-stars:hover + .ghgn-actors,
+.ghgn-actors-hover .ghgn-actors:hover {
 	display: block;
 }
 
 /*  the hoverlay */
-.ghgn-stargazers-hover .ghgn-stargazers:before {
+.ghgn-actors-hover .ghgn-actors:before {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -22,6 +22,6 @@
 	right: 0;
 	left: 0;
 }
-.ghgn-stargazers-hover .ghgn-stargazers a {
+.ghgn-actors-hover .ghgn-actors a {
 	position: relative; /* keep the links on top */
 }

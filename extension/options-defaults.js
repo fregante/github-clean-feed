@@ -2,7 +2,7 @@
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.storage.sync.get(existingOptions => {
 		const defaults = {
-			stargazers: 'hover',
+			actors: 'hover',
 			starredRepos: 'group',
 			forkedRepos: 'group'
 		};
