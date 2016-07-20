@@ -120,6 +120,14 @@ function apply(options) {
 		action: options.branches,
 	});
 
+	// possibly hide tags and releases
+	const tags = selectAll('.alert.create .octicon-tag').map(icon => icon.parentNode.parentNode.parentNode);
+	const releases = selectAll('.alert.release');
+	groupRepos({
+		elements: tags.concat(releases),
+		action: options.tags,
+	});
+
 	// possibly hide pushed commits
 	groupRepos({
 		elements: '.alert.push',
