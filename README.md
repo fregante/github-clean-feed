@@ -2,15 +2,18 @@
 
 > Browser Extension: Group news feed by repo
 
-Currently it only:
+Currently it:
 
-* Groups new stars
-* Groups new forks
-* Applies to items on the first page of the news feed
+- Groups new stars
+- Groups new forks
+- Groups new repos and newly-public repos
+- Only applies to items on the first page of the news feed
 
 Optionally:
 
-* The new boxes appear in the sidebar
+- Move certain groups to the sidebar
+- Hide certain events
+- Always show/hide who starred the repos
 
 Ungrouped events will stay in the list below the groups.
 
