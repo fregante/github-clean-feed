@@ -26,11 +26,40 @@
 </style>
 
 <form id="options-form">
-    <h3>Stars and forks</h3>
+    <h3>Display</h3>
     <label>
         <input name="useSidebar" type="checkbox">
         Use sidebar
     </label>
+
+    <h3>Starred repositories</h3>
+    <label>
+        <input name="starredRepos" type="radio" value="group">
+        Group
+    </label>
+    <label>
+        <input name="starredRepos" type="radio" value="hide">
+        Hide
+    </label>
+    <label>
+        <input name="starredRepos" type="radio" value="off">
+        Leave in main feed
+    </label>
+
+    <h3>Forked repositories</h3>
+    <label>
+        <input name="forkedRepos" type="radio" value="group">
+        Group
+    </label>
+    <label>
+        <input name="forkedRepos" type="radio" value="hide">
+        Hide
+    </label>
+    <label>
+        <input name="forkedRepos" type="radio" value="off">
+        Leave in main feed
+    </label>
+
     <h3>Show stargazers</h3>
     <label>
         <input name="stargazers" type="radio" value="always">

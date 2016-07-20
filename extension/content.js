@@ -14,6 +14,9 @@ function usersHTML(users) {
 	.map(user => `<a href="/${user}" style="color:inherit">${user}</a>`)
 	.join(', ');
 }
+function removeElements(selector) {
+	Array.from(document.querySelectorAll(selector)).forEach(event => event.remove());
+}
 
 function groupRepos({selector, title, spawnPoint, stargazers}) {
 	const events = Array.from(document.querySelectorAll(selector));
@@ -59,18 +62,26 @@ function groupRepos({selector, title, spawnPoint, stargazers}) {
 
 function init(options) {
 	const spawnPoint = document.createElement('div');
-	groupRepos({
-		selector: '.alert.watch_started',
-		title: 'Starred repositories',
-		spawnPoint,
-		stargazers: options.stargazers
-	});
-	groupRepos({
-		selector: '.alert.fork',
-		title: 'Forked repositories',
-		spawnPoint,
-		stargazers: options.stargazers
-	});
+	if (options.starredRepos === 'hide') {
+		removeElements('.alert.watch_started');
+	} else if (options.starredRepos === 'group') {
+		groupRepos({
+			selector: '.alert.watch_started',
+			title: 'Starred repositories',
+			spawnPoint,
+			stargazers: options.stargazers
+		});
+	}
+	if (options.forkedRepos === 'hide') {
+		removeElements('.alert.fork');
+	} else if (options.forkedRepos === 'group') {
+		groupRepos({
+			selector: '.alert.fork',
+			title: 'Forked repositories',
+			spawnPoint,
+			stargazers: options.stargazers
+		});
+	}
 	if (options.useSidebar) {
 		const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');
 		firstSideBox.parentNode.insertBefore(spawnPoint, firstSideBox);
