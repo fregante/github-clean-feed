@@ -4,6 +4,10 @@ const iconRepo = '<svg aria-label="Repository" class="octicon octicon-repo repo-
 
 const newsFeed = document.querySelector('.news');
 
+function selectAll(selector) {
+	return Array.from(document.querySelectorAll(selector));
+}
+
 function fromHTML(html, all) {
 	const helper = document.createElement('div');
 	helper.innerHTML = html;
@@ -21,11 +25,11 @@ function usersHTML(users) {
 	.join(', ');
 }
 
-function groupRepos({action, selector, title, sidebarHolder, mainHolder, actors, icon}) {
+function groupRepos({action, elements, title, sidebarHolder, mainHolder, actors, icon}) {
 	if (action === 'off') {
 		return;
 	}
-	const events = Array.from(document.querySelectorAll(selector));
+	const events = typeof elements === 'string' ? selectAll(elements) : elements;
 	if (action === 'hide') {
 		events.forEach(event => event.remove());
 		return;
@@ -61,9 +65,9 @@ function groupRepos({action, selector, title, sidebarHolder, mainHolder, actors,
 					</a>
 					<span class="stars ghgn-stars">
 						${users.size > 1 ? users.size : ''}
-						${icon}
+						${icon ? icon : ''}
 					</span>
-					<div class="ghgn-actors">${actors === 'none' ? '' : usersHTML(users)}</div>
+					${actors === 'none' ? '' : `<div class="ghgn-actors"> ${usersHTML(users)}</div>`}
 				</div>
 			</li>`));
 		});
@@ -78,7 +82,7 @@ function init(options) {
 
 	// handle stars
 	groupRepos({
-		selector: '.alert.watch_started',
+		elements: '.alert.watch_started',
 		title: 'Starred repositories',
 		action: options.starredRepos,
 		actors: options.actors,
@@ -89,11 +93,23 @@ function init(options) {
 
 	// handle forks
 	groupRepos({
-		selector: '.alert.fork',
+		elements: '.alert.fork',
 		title: 'Forked repositories',
 		action: options.forkedRepos,
 		actors: options.actors,
 		icon: iconFork,
+		sidebarHolder,
+		mainHolder
+	});
+
+	// new/public repos (new branches are `.alert.create` too)
+	const newRepos = selectAll('.alert.create .octicon-repo').map(icon => icon.parentNode.parentNode.parentNode);
+	const publicRepos = selectAll('.alert.public');
+	groupRepos({
+		elements: newRepos.concat(publicRepos),
+		title: 'New repositories',
+		action: options.newRepos,
+		actors: 'none',
 		sidebarHolder,
 		mainHolder
 	});
