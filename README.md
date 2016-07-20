@@ -10,6 +10,7 @@ Every part is optional:
 - Hides branch creation/deletion
 - Hides new commits
 - Hides "collaborator added" events
+- Hides tags and releases
 
 Untouched/ungrouped events remain in the main feed.
 
