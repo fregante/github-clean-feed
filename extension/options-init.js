@@ -9,5 +9,6 @@ new OptMan().init({
 		branches: true,
 		commits: true,
 		tags: true,
+		loadMore: true,
 	},
 });

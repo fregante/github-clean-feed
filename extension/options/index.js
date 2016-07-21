@@ -44,7 +44,9 @@ options.createForm(
 	OptMan.checkbox('collaborators', 'Hide <em>collaborator added</em> events'),
 	OptMan.checkbox('branches', 'Hide <em>new</em> and <em>deleted</em> branches'),
 	OptMan.checkbox('commits', 'Hide pushed commits'),
-	OptMan.checkbox('tags', 'Hide <em>releases</em> and <em>tags</em>')
+	OptMan.checkbox('tags', 'Hide <em>releases</em> and <em>tags</em>'),
+	OptMan.checkbox('loadMore', 'Load one more page automatically'),
+	''
 );
 
 document.querySelector('#options-form').appendChild(options.form);

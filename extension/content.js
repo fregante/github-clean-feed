@@ -178,5 +178,11 @@ function init(options) {
 		observer.observe(newsFeed, {childList: true});
 	});
 	observer.observe(newsFeed, {childList: true});
+
+	// try loading more
+	const btn = document.querySelector('.ajax-pagination-btn');
+	if (btn) {
+		btn.click();
+	}
 }
 new OptMan().get(init);
