@@ -82,7 +82,6 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsD
 }
 
 function apply(options) {
-	console.log(options)
 	const sidebarHolder = fromHTML('<div class="ghgn-holder">');
 	const mainHolder = fromHTML('<div class="ghgn-holder">');
 

@@ -8,7 +8,6 @@ window.OptMan = class OptMan {
 			migrations: [],
 		}, setup);
 		this._onInstall();
-		console.log('init');
 	}
 	get(callback) {
 		chrome.storage.sync.get(this.storageName,
