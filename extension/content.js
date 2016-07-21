@@ -23,7 +23,7 @@ function actorsHTML(actors) {
 	return Array.from(actors).map(user => `<a href="/${user}">${user}</a>`).join(', ');
 }
 
-function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsDisplay, icon = ''}) {
+function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsDisplay, icon = '', avoidDuplicates}) {
 	if (action === 'off') {
 		return;
 	}
@@ -51,6 +51,9 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsD
 	const listEl = fromHTML('<ul class="boxed-group-inner mini-repo-list"></ul>');
 
 	map.forEach((actors, repoUrl) => {
+		if (avoidDuplicates && document.querySelector(`.ghgn-group a[href="/${repoUrl}"]`)) {
+			return;
+		}
 		const [owner, repo] = repoUrl.split('/');
 		listEl.appendChild(fromHTML(`
 			<li class="public source ghgn-actors-${actorsDisplay}">
@@ -71,12 +74,15 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsD
 		`));
 	});
 
-	groupEl.appendChild(listEl);
-	holder.appendChild(groupEl);
+	if (listEl.children.length) {
+		groupEl.appendChild(listEl);
+		holder.appendChild(groupEl);
+	}
 	events.forEach(event => event.remove());
 }
 
 function apply(options) {
+	console.log(options)
 	const sidebarHolder = fromHTML('<div class="ghgn-holder">');
 	const mainHolder = fromHTML('<div class="ghgn-holder">');
 
@@ -86,6 +92,7 @@ function apply(options) {
 		title: 'Starred repositories',
 		action: options.starredRepos,
 		actorsDisplay: options.actors,
+		avoidDuplicates: options.avoidDuplicates,
 		icon: iconStar,
 		sidebarHolder,
 		mainHolder,
@@ -97,6 +104,7 @@ function apply(options) {
 		title: 'Forked repositories',
 		action: options.forkedRepos,
 		actorsDisplay: options.actors,
+		avoidDuplicates: options.avoidDuplicates,
 		icon: iconFork,
 		sidebarHolder,
 		mainHolder,
@@ -110,6 +118,7 @@ function apply(options) {
 		title: 'New repositories',
 		action: options.newRepos,
 		actorsDisplay: 'none',
+		avoidDuplicates: options.avoidDuplicates,
 		sidebarHolder,
 		mainHolder,
 	});

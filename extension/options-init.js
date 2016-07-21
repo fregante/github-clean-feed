@@ -10,5 +10,6 @@ new OptMan().init({
 		commits: true,
 		tags: true,
 		loadMore: true,
+		avoidDuplicates: true,
 	},
 });

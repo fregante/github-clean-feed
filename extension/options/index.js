@@ -46,6 +46,7 @@ options.createForm(
 	OptMan.checkbox('commits', 'Hide pushed commits'),
 	OptMan.checkbox('tags', 'Hide <em>releases</em> and <em>tags</em>'),
 	OptMan.checkbox('loadMore', 'Load one more page automatically'),
+	OptMan.checkbox('avoidDuplicates', 'Avoid duplicates across feed pages'),
 	''
 );
 
