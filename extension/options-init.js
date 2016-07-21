@@ -1,14 +1,14 @@
 /* globals OptMan */
 new OptMan().init({
 	defaults: {
-		actors: 'hover',
 		starredRepos: 'group',
 		forkedRepos: 'group',
 		newRepos: 'group',
+		actors: 'hover',
 		collaborators: true,
 		branches: true,
-		commits: true,
 		tags: true,
+		commits: true,
 		loadMore: true,
 		avoidDuplicates: true,
 	},
