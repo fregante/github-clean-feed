@@ -1,0 +1,33 @@
+html {
+    font-family: sans-serif;
+}
+label, button, footer {
+    display: block;
+    margin: 1em 0;
+}
+input {
+    font: inherit;
+}
+h3:not(:first-child) {
+    margin-top: 2em;
+}
+footer {
+    font-style: italic;
+    font-size: 0.8em;
+    color: gray
+}
+footer a {
+    color: inherit;
+}
+.one-line-labels label {
+    display: inline-block;
+}
+.one-line-labels label:not(:last-child) {
+    margin-right: 0.5em;
+}
+h3 + .one-line-labels label{
+    margin-top: 0;
+}
+.one-line-labels + h3 {
+    margin-top: 1em;
+}

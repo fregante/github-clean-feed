@@ -16,13 +16,14 @@
     },
     "background": {
         "scripts": [
-            "enable-all-current-tabs.js",
-            "options-defaults.js"
+            "lib/options-manager.js",
+            "options-init.js",
+            "enable-all-current-tabs.js"
         ]
     },
     "options_ui": {
         "chrome_style": true,
-        "page": "options.html"
+        "page": "options/index.html"
     },
     "content_scripts": [
         {
@@ -34,6 +35,7 @@
                 "content.css"
             ],
             "js": [
+                "lib/options-manager.js",
                 "content.js"
             ],
             "run_at": "document_end"
