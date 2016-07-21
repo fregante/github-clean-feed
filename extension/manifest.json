@@ -18,7 +18,7 @@
         "scripts": [
             "lib/options-manager.js",
             "options-init.js",
-            "enable-all-current-tabs.js"
+            "lib/enable-all-current-tabs.js"
         ]
     },
     "options_ui": {
