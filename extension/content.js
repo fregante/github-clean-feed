@@ -65,7 +65,7 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsD
 						${actors.size > 1 ? actors.size : ''}
 						${icon}
 					</span>
-					<div class="ghgn-actors">${actorsDisplay === 'none' ? '' : actorsHTML(actors)}</div>
+					<span class="ghgn-actors">${actorsDisplay === 'none' ? '' : actorsHTML(actors)}</span>
 				</div>
 			</li>
 		`));

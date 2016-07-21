@@ -28,7 +28,7 @@
 }
 .ghgn-actors-hover .ghgn-stars:hover + .ghgn-actors,
 .ghgn-actors-hover .ghgn-actors:hover {
-	display: block;
+	display: inline-block;
 }
 
 /*  the hoverlay */
