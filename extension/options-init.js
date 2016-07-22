@@ -9,7 +9,7 @@ new OptMan().init({
 		branches: true,
 		tags: true,
 		commits: true,
-		loadMore: true,
+		loadMore: false,
 		avoidDuplicates: true,
 	},
 	migrations: [
