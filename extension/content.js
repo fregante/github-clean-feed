@@ -84,15 +84,16 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsO
 function apply(options) {
 	const sidebarHolder = fromHTML('<div class="ghgn-holder">');
 	const mainHolder = fromHTML('<div class="ghgn-holder">');
+	const {avoidDuplicates, actorsOnHover} = options;
 
 	// handle stars
 	groupRepos({
 		elements: '.alert.watch_started',
 		title: 'Starred repositories',
 		action: options.starredRepos,
-		actorsOnHover: options.actorsOnHover,
-		avoidDuplicates: options.avoidDuplicates,
 		icon: iconStar,
+		actorsOnHover,
+		avoidDuplicates,
 		sidebarHolder,
 		mainHolder,
 	});
@@ -102,9 +103,9 @@ function apply(options) {
 		elements: '.alert.fork',
 		title: 'Forked repositories',
 		action: options.forkedRepos,
-		actorsOnHover: options.actorsOnHover,
-		avoidDuplicates: options.avoidDuplicates,
 		icon: iconFork,
+		actorsOnHover,
+		avoidDuplicates,
 		sidebarHolder,
 		mainHolder,
 	});
@@ -116,8 +117,8 @@ function apply(options) {
 		elements: newRepos.concat(publicRepos),
 		title: 'New repositories',
 		action: options.newRepos,
-		actorsOnHover: options.actorsOnHover,
-		avoidDuplicates: options.avoidDuplicates,
+		actorsOnHover,
+		avoidDuplicates,
 		sidebarHolder,
 		mainHolder,
 	});
