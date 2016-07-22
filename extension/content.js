@@ -32,7 +32,7 @@ function actorsHTML(actors) {
 	return Array.from(actors).map(user => `<a href="/${user}">${user}</a>`).join(', ');
 }
 
-function groupRepos({action, elements, title, holder, actorsOnHover, icon = '', avoidDuplicates}) {
+function runAction({action, elements, title, holder, actorsOnHover, icon = '', avoidDuplicates}) {
 	if (action === 'off') {
 		return;
 	}
@@ -93,10 +93,10 @@ function apply(options) {
 	const {avoidDuplicates, actorsOnHover} = options;
 
 	// handle stars
-	groupRepos({
+	runAction({
+		action: options.starredRepos,
 		elements: $$('.alert.watch_started'),
 		title: 'Starred repositories',
-		action: options.starredRepos,
 		icon: iconStar,
 		actorsOnHover,
 		avoidDuplicates,
@@ -104,10 +104,10 @@ function apply(options) {
 	});
 
 	// handle forks
-	groupRepos({
+	runAction({
+		action: options.forkedRepos,
 		elements: $$('.alert.fork'),
 		title: 'Forked repositories',
-		action: options.forkedRepos,
 		icon: iconFork,
 		actorsOnHover,
 		avoidDuplicates,
@@ -115,37 +115,37 @@ function apply(options) {
 	});
 
 	// new/public repos
-	groupRepos({
+	runAction({
+		action: options.newRepos,
 		elements: $$('.alert.create', '.octicon-repo').and('.alert.public'),
 		title: 'New repositories',
-		action: options.newRepos,
 		actorsOnHover,
 		avoidDuplicates,
 		holder,
 	});
 
 	// possibly hide new/deleted branches
-	groupRepos({
-		elements: $$('.alert.create', '.octicon-git-branch').and('.alert.delete'),
+	runAction({
 		action: options.branches ? 'hide' : 'off',
+		elements: $$('.alert.create', '.octicon-git-branch').and('.alert.delete'),
 	});
 
 	// possibly hide tags and releases
-	groupRepos({
-		elements: $$('.alert.create', '.octicon-tag').and('.alert.release'),
+	runAction({
 		action: options.tags ? 'hide' : 'off',
+		elements: $$('.alert.create', '.octicon-tag').and('.alert.release'),
 	});
 
 	// possibly hide pushed commits
-	groupRepos({
-		elements: $$('.alert.push'),
+	runAction({
 		action: options.commits ? 'hide' : 'off',
+		elements: $$('.alert.push'),
 	});
 
 	// possibly hide collaborator events
-	groupRepos({
-		elements: $$('.alert.member_add'),
+	runAction({
 		action: options.collaborators ? 'hide' : 'off',
+		elements: $$('.alert.member_add'),
 	});
 
 	if (holder.children.length) {
