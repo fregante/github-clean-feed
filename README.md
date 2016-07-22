@@ -1,4 +1,4 @@
-# GitHub Grouped News [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/failppjoidijbialknplliogdmabniaf.svg)](https://chrome.google.com/webstore/detail/github-grouped-news/failppjoidijbialknplliogdmabniaf)
+# GitHub Grouped News [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/failppjoidijbialknplliogdmabniaf.svg)](https://chrome.google.com/webstore/detail/github-grouped-news/failppjoidijbialknplliogdmabniaf) [![Auto deployment via travis](https://img.shields.io/badge/publishing-automated-blue.svg)](https://travis-ci.org/bfred-it/GitHub-Grouped-News)
 
 > Browser Extension: Group news feed by repo
 
