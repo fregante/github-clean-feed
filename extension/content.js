@@ -23,7 +23,7 @@ function actorsHTML(actors) {
 	return Array.from(actors).map(user => `<a href="/${user}">${user}</a>`).join(', ');
 }
 
-function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsOnHover, icon = '', avoidDuplicates}) {
+function groupRepos({action, elements, title, holder, actorsOnHover, icon = '', avoidDuplicates}) {
 	if (action === 'off') {
 		return;
 	}
@@ -33,7 +33,6 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsO
 		return;
 	}
 
-	const holder = action === 'groupSidebar' ? sidebarHolder : mainHolder;
 	const map = events.reduce((repos, item) => {
 		const user = item.querySelector('.title a:nth-child(1)').textContent;
 		const repo = item.querySelector('.title a:nth-child(2)').textContent;
@@ -82,8 +81,7 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsO
 }
 
 function apply(options) {
-	const sidebarHolder = fromHTML('<div class="ghgn-holder">');
-	const mainHolder = fromHTML('<div class="ghgn-holder">');
+	const holder = fromHTML('<div class="ghgn-holder">');
 	const {avoidDuplicates, actorsOnHover} = options;
 
 	// handle stars
@@ -94,8 +92,7 @@ function apply(options) {
 		icon: iconStar,
 		actorsOnHover,
 		avoidDuplicates,
-		sidebarHolder,
-		mainHolder,
+		holder,
 	});
 
 	// handle forks
@@ -106,8 +103,7 @@ function apply(options) {
 		icon: iconFork,
 		actorsOnHover,
 		avoidDuplicates,
-		sidebarHolder,
-		mainHolder,
+		holder,
 	});
 
 	// new/public repos (new branches are `.alert.create` too)
@@ -119,8 +115,7 @@ function apply(options) {
 		action: options.newRepos,
 		actorsOnHover,
 		avoidDuplicates,
-		sidebarHolder,
-		mainHolder,
+		holder,
 	});
 
 	// possibly hide new/deleted branches
@@ -151,19 +146,13 @@ function apply(options) {
 		action: options.collaborators ? 'hide' : 'off',
 	});
 
-	// add spawn points to document
-	if (sidebarHolder.children.length) {
-		const firstSideBox = document.querySelector('.dashboard-sidebar .boxed-group');
-		firstSideBox.parentNode.insertBefore(sidebarHolder, firstSideBox);
-	}
-
-	if (mainHolder.children.length) {
+	if (holder.children.length) {
 		const newsFeed = document.querySelector('#dashboard .news');
 		if (options.insertionPoint) {
-			newsFeed.insertBefore(mainHolder, options.insertionPoint);
+			newsFeed.insertBefore(holder, options.insertionPoint);
 		} else {
 			const accountSwitcher = document.querySelector('.account-switcher');
-			newsFeed.insertBefore(mainHolder, newsFeed.children[accountSwitcher ? 1 : 0]);
+			newsFeed.insertBefore(holder, newsFeed.children[accountSwitcher ? 1 : 0]);
 		}
 	}
 }
@@ -171,13 +160,6 @@ function apply(options) {
 function init(options) {
 	const newsFeed = document.querySelector('#dashboard .news');
 	apply(options);
-
-	// adjust options for future updates
-	for (const name of Object.keys(options)) {
-		if (options[name] === 'groupSidebar') {
-			options[name] = 'group';
-		}
-	}
 
 	// track future updates
 	const observer = new MutationObserver(([{addedNodes}]) => {

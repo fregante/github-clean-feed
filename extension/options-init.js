@@ -12,11 +12,18 @@ new OptMan().init({
 		loadMore: true,
 		avoidDuplicates: true,
 	},
-	migratons: [
+	migrations: [
 		options => {
 			if (typeof options.actors === 'string') {
 				options.actorsOnHover = options.actors !== 'Always';
 				delete options.actors;
+			}
+		},
+		options => {
+			for (const name of Object.keys(options)) {
+				if (options[name] === 'groupSidebar') {
+					options[name] = 'group';
+				}
 			}
 		},
 	],

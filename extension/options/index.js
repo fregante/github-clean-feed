@@ -4,7 +4,6 @@ options.createForm(
 	OptMan.title('Starred repositories'),
 	OptMan.radio('starredRepos', {
 		group: 'Grouped',
-		groupSidebar: 'Grouped in sidebar',
 		hide: 'Hidden',
 		off: 'Untouched',
 	}, {
@@ -14,7 +13,6 @@ options.createForm(
 	OptMan.title('Forked repositories'),
 	OptMan.radio('forkedRepos', {
 		group: 'Grouped',
-		groupSidebar: 'Grouped in sidebar',
 		hide: 'Hidden',
 		off: 'Untouched',
 	}, {
@@ -24,7 +22,6 @@ options.createForm(
 	OptMan.title('New and newly-public repositories'),
 	OptMan.radio('newRepos', {
 		group: 'Grouped',
-		groupSidebar: 'Grouped in sidebar',
 		hide: 'Hidden',
 		off: 'Untouched',
 	}, {
