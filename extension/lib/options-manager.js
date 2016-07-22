@@ -15,7 +15,7 @@ window.OptMan = class OptMan {
 		);
 	}
 	set(newOptions, callback) {
-		this.get(options => {
+		this.get((options = {}) => {
 			Object.assign(options, newOptions);
 			chrome.storage.sync.set({
 				[this.storageName]: options,
@@ -23,9 +23,14 @@ window.OptMan = class OptMan {
 		});
 	}
 	_onInstall() {
-		chrome.runtime.onInstalled.addListener(() => {
+		chrome.runtime.onInstalled.addListener(reason => {
+			console.info('Extension event:', reason);
 			this.get(options => {
-				this.setup.migrations.forEach(migrate => migrate(options));
+				console.info('Existing options:', options);
+				if (this.setup.migrations.length) {
+					console.info('Running', this.setup.migrations.length, 'migrations');
+					this.setup.migrations.forEach(migrate => migrate(options));
+				}
 				const newOptions = Object.assign(this.setup.defaults, options);
 				this.set(newOptions);
 			});
