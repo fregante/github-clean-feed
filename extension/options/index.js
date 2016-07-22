@@ -31,16 +31,8 @@ options.createForm(
 		oneLine: true,
 	}),
 
-	OptMan.title('List users who starred, forked, ... the repos'),
-	OptMan.radio('actors', {
-		always: 'Always',
-		hover: 'When hovering the icon',
-		none: 'No',
-	}, {
-		oneLine: true,
-	}),
-
 	OptMan.title('Utilities'),
+	OptMan.checkbox('actorsOnHover', 'Only show usernames when hovering the event icon'),
 	OptMan.checkbox('collaborators', 'Hide <em>collaborator added</em> events'),
 	OptMan.checkbox('branches', 'Hide <em>new</em> and <em>deleted</em> branches'),
 	OptMan.checkbox('tags', 'Hide <em>releases</em> and <em>tags</em>'),

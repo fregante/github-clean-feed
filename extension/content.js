@@ -23,7 +23,7 @@ function actorsHTML(actors) {
 	return Array.from(actors).map(user => `<a href="/${user}">${user}</a>`).join(', ');
 }
 
-function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsDisplay, icon = '', avoidDuplicates}) {
+function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsOnHover, icon = '', avoidDuplicates}) {
 	if (action === 'off') {
 		return;
 	}
@@ -56,7 +56,7 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsD
 		}
 		const [owner, repo] = repoUrl.split('/');
 		listEl.appendChild(fromHTML(`
-			<li class="public source ghgn-actors-${actorsDisplay}">
+			<li class="public source ghgn-actors-${actorsOnHover ? 'hover' : 'always'}">
 				<div class="mini-repo-list-item">
 					<a href="/${repoUrl}" class="css-truncate">
 						${iconRepo}
@@ -68,7 +68,7 @@ function groupRepos({action, elements, title, sidebarHolder, mainHolder, actorsD
 						${actors.size > 1 ? actors.size : ''}
 						${icon}
 					</span>
-					<span class="ghgn-actors">${actorsDisplay === 'none' ? '' : actorsHTML(actors)}</span>
+					<span class="ghgn-actors">${actorsHTML(actors)}</span>
 				</div>
 			</li>
 		`));
@@ -90,7 +90,7 @@ function apply(options) {
 		elements: '.alert.watch_started',
 		title: 'Starred repositories',
 		action: options.starredRepos,
-		actorsDisplay: options.actors,
+		actorsOnHover: options.actorsOnHover,
 		avoidDuplicates: options.avoidDuplicates,
 		icon: iconStar,
 		sidebarHolder,
@@ -102,7 +102,7 @@ function apply(options) {
 		elements: '.alert.fork',
 		title: 'Forked repositories',
 		action: options.forkedRepos,
-		actorsDisplay: options.actors,
+		actorsOnHover: options.actorsOnHover,
 		avoidDuplicates: options.avoidDuplicates,
 		icon: iconFork,
 		sidebarHolder,
@@ -116,7 +116,7 @@ function apply(options) {
 		elements: newRepos.concat(publicRepos),
 		title: 'New repositories',
 		action: options.newRepos,
-		actorsDisplay: 'none',
+		actorsOnHover: options.actorsOnHover,
 		avoidDuplicates: options.avoidDuplicates,
 		sidebarHolder,
 		mainHolder,

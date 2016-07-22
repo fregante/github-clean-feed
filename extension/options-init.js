@@ -4,7 +4,7 @@ new OptMan().init({
 		starredRepos: 'group',
 		forkedRepos: 'group',
 		newRepos: 'group',
-		actors: 'hover',
+		actorsOnHover: true,
 		collaborators: true,
 		branches: true,
 		tags: true,
@@ -12,4 +12,12 @@ new OptMan().init({
 		loadMore: true,
 		avoidDuplicates: true,
 	},
+	migratons: [
+		options => {
+			if (typeof options.actors === 'string') {
+				options.actorsOnHover = options.actors !== 'Always';
+				delete options.actors;
+			}
+		},
+	],
 });
