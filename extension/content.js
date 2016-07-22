@@ -88,7 +88,7 @@ function runAction({action, elements, title, holder, actorsOnHover, icon = '', a
 	elements.forEach(element => element.remove());
 }
 
-function apply(options) {
+function apply(options, insertionPoint) {
 	const holder = fromHTML('<div class="ghgn-holder">');
 	const {avoidDuplicates, actorsOnHover} = options;
 
@@ -149,13 +149,12 @@ function apply(options) {
 	});
 
 	if (holder.children.length) {
-		const newsFeed = $('#dashboard .news');
-		if (options.insertionPoint) {
-			newsFeed.insertBefore(holder, options.insertionPoint);
-		} else {
+		if (!insertionPoint) {
+			const newsFeed = $('#dashboard .news');
 			const accountSwitcher = $('.account-switcher');
-			newsFeed.insertBefore(holder, newsFeed.children[accountSwitcher ? 1 : 0]);
+			insertionPoint = newsFeed.children[accountSwitcher ? 1 : 0];
 		}
+		insertionPoint.parentNode.insertBefore(holder, insertionPoint);
 	}
 }
 
@@ -166,8 +165,7 @@ function init(options) {
 	// track future updates
 	const observer = new MutationObserver(([{addedNodes}]) => {
 		observer.disconnect(); // disable to prevent loops
-		options.insertionPoint = addedNodes[0]; // add boxes before the first new element
-		apply(options);
+		apply(options, addedNodes[0]);// add boxes before the first new element
 		observer.observe(newsFeed, {childList: true});
 	});
 	observer.observe(newsFeed, {childList: true});
