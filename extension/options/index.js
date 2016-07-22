@@ -31,12 +31,14 @@ options.createForm(
 		oneLine: true,
 	}),
 
-	OptMan.title('Utilities'),
+	OptMan.title('Display'),
 	OptMan.checkbox('actorsOnHover', 'Only show usernames when hovering the event icon'),
 	OptMan.checkbox('collaborators', 'Hide <em>collaborator added</em> events'),
 	OptMan.checkbox('branches', 'Hide <em>new</em> and <em>deleted</em> branches'),
 	OptMan.checkbox('tags', 'Hide <em>releases</em> and <em>tags</em>'),
 	OptMan.checkbox('commits', 'Hide pushed commits'),
+
+	OptMan.title('Utilities'),
 	OptMan.checkbox('loadMore', 'Load one more page automatically'),
 	OptMan.checkbox('avoidDuplicates', 'Avoid duplicates across feed pages'),
 	''
