@@ -25,7 +25,7 @@ window.OptMan = class OptMan {
 	_onInstall() {
 		chrome.runtime.onInstalled.addListener(reason => {
 			console.info('Extension event:', reason);
-			this.get(options => {
+			this.get((options = {}) => {
 				console.info('Existing options:', options);
 				if (this.setup.migrations.length) {
 					console.info('Running', this.setup.migrations.length, 'migrations');
