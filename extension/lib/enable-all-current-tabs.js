@@ -9,8 +9,14 @@
 	};
 	chrome.runtime.getManifest().content_scripts.forEach(script => {
 		const loadContentScripts = tab => {
-			script.js.concat(script.css).forEach(file => {
+			script.js.forEach(file => {
 				chrome.tabs.executeScript(tab.id, {
+					allFrames: script.all_frames,
+					file,
+				}, showErrors);
+			});
+			script.css.forEach(file => {
+				chrome.tabs.insertCSS(tab.id, {
 					allFrames: script.all_frames,
 					file,
 				}, showErrors);
