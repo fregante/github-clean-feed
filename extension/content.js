@@ -55,8 +55,9 @@ function apply(options, insertionPoint) {
 
 	const map = originalEvents.reduce((repos, originalEvent) => {
 		const actorEl = originalEvent.querySelector('.title a:first-child');
-		const repoEl = originalEvent.querySelector('.title a:nth-child(2)');
-		const repo = repoEl.textContent = repoEl.textContent.replace(/#.*/, '');
+		const eventEl = originalEvent.querySelector('.title a:nth-child(2)');
+		const repo = eventEl.textContent.replace(/[#@].*/, '');
+		const repoEl = fromHTML(`<a href="/${repo}"></a>`);
 		const classes = mapFromValues(originalEvent.classList);
 		let type;
 		let relatedEl;
@@ -78,6 +79,7 @@ function apply(options, insertionPoint) {
 			type,
 			actorEl,
 			repoEl,
+			eventEl,
 			relatedEl,
 			timeEl: originalEvent.querySelector('.time'),
 		};
@@ -126,7 +128,10 @@ function apply(options, insertionPoint) {
 					detailsEl.textContent = ' created';
 					break;
 				case 'comment':
-					detailsEl.textContent = ' by ';
+					event.eventEl.textContent = event.eventEl.textContent.replace(/[^#]+/, '');
+					detailsEl.appendChild(document.createTextNode(' '));
+					detailsEl.appendChild(event.eventEl);
+					detailsEl.appendChild(document.createTextNode(' by '));
 					detailsEl.appendChild(event.actorEl);
 					detailsEl.appendChild(document.createTextNode(': '));
 					detailsEl.appendChild(event.relatedEl);
