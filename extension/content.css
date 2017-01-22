@@ -53,3 +53,11 @@
 	flex-shrink: 0;
 	margin-right: 0.3em;
 }
+
+/**
+ * Make sure Refined GitHub CSS doesn't clash
+ */
+ svg.octicon.octicon-star.dashboard-event-icon {
+ 	height: 16px !important;
+ 	width: 14px !important;
+ }
