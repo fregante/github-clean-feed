@@ -15,7 +15,7 @@ class OptMan {
 				console.info('Existing options:', options);
 				if (this.setup.migrations.length > 0) {
 					console.info('Running', this.setup.migrations.length, 'migrations');
-					this.setup.migrations.forEach(migrate => migrate(options));
+					this.setup.migrations.forEach(migrate => migrate(options, this.setup.defaults));
 				}
 				const newOptions = Object.assign(this.setup.defaults, options);
 				this.set(newOptions);
@@ -94,6 +94,14 @@ class OptMan {
 		this.set({
 			[name]: value,
 		});
+	}
+
+	static migrationRemoveUnused(options, defaults) {
+		for (const key of Object.keys(options)) {
+			if (!(key in defaults)) {
+				delete options[key];
+			}
+		}
 	}
 }
 
