@@ -19,7 +19,7 @@
     },
     "background": {
         "scripts": [
-            "lib/optman.js",
+            "lib/optsync.js",
             "options-init.js"
         ]
     },
@@ -39,7 +39,7 @@
                 "content.css"
             ],
             "js": [
-                "lib/optman.js",
+                "lib/optsync.js",
                 "lib/optdom.js",
                 "lib/object-like-map.js",
                 "content.js"

@@ -1,5 +1,5 @@
-/* globals OptMan */
-new OptMan().init({
+/* globals OptSync */
+new OptSync().define({
 	defaults: {
 		starredRepos: 'group',
 		forkedRepos: 'group',
@@ -13,6 +13,6 @@ new OptMan().init({
 		hideClosedIssues: true,
 	},
 	migrations: [
-		OptMan.migrationRemoveUnused
+		OptSync.migrationRemoveUnused
 	],
 });

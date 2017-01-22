@@ -1,4 +1,4 @@
-/* global OptMan, OptDom */
+/* global OptSync, OptDom */
 const form = OptDom.join(
 	OptDom.title('Starred repositories'),
 	OptDom.radio('starredRepos', {
@@ -56,7 +56,7 @@ const form = OptDom.join(
 
 document.querySelector('#options-form').appendChild(form);
 
-new OptMan().syncForm(form);
+new OptSync().syncForm(form);
 
 // chrome.storage.onChanged.addListener(changes => {
 // 	const fields = {};

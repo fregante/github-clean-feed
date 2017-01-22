@@ -1,9 +1,9 @@
-class OptMan {
+class OptSync {
 	constructor(storageName = 'options') {
 		this.storageName = storageName;
 	}
 
-	init(setup) {
+	define(setup) {
 		this.setup = Object.assign({
 			defaults: {},
 			migrations: [],
@@ -11,44 +11,36 @@ class OptMan {
 
 		chrome.runtime.onInstalled.addListener(reason => {
 			console.info('Extension event:', reason);
-			this.get((options = {}) => {
+			this.getAll().then((options = {}) => {
 				console.info('Existing options:', options);
 				if (this.setup.migrations.length > 0) {
 					console.info('Running', this.setup.migrations.length, 'migrations');
 					this.setup.migrations.forEach(migrate => migrate(options, this.setup.defaults));
 				}
 				const newOptions = Object.assign(this.setup.defaults, options);
-				this.set(newOptions);
+				this.setAll(newOptions);
 			});
 		});
 	}
 
-	get(callback) {
-		const promise = new Promise(resolve => {
+	getAll() {
+		return new Promise(resolve => {
 			chrome.storage.sync.get(this.storageName,
 				keys => resolve(keys[this.storageName])
 			);
-		}).then(callback);
-
-		if (!callback) {
-			return promise;
-		}
+		});
 	}
 
-	set(newOptions, callback) {
-		const promise = new Promise(resolve => {
+	setAll(newOptions) {
+		return new Promise(resolve => {
 			chrome.storage.sync.set({
 				[this.storageName]: newOptions,
 			}, resolve);
-		}).then(callback);
-
-		if (!callback) {
-			return promise;
-		}
+		});
 	}
 
 	syncForm(form) {
-		this.get(options => OptMan._applyToForm(options, form));
+		this.getAll().then(options => OptSync._applyToForm(options, form));
 		form.addEventListener('input', e => this._handleFormUpdates(e));
 		form.addEventListener('change', e => this._handleFormUpdates(e));
 	}
@@ -91,7 +83,7 @@ class OptMan {
 			default: break;
 		}
 		console.info('Saving option', el.name, 'to', value);
-		this.set({
+		this.setAll({
 			[name]: value,
 		});
 	}
@@ -105,6 +97,6 @@ class OptMan {
 	}
 }
 
-if (typeof exports === 'object') {
-	exports.OptMan = OptMan;
+if (typeof module === 'object') {
+	module.exports = OptSync;
 }
