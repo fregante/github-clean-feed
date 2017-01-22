@@ -5,28 +5,38 @@
   "description": "",
   "devDependencies": {
     "chrome-webstore-upload-cli": "^1.0.0",
+    "cli-foreachfile": "^1.0.4",
     "dot-json": "^1.0.3",
     "onchange": "^3.2.0",
+    "rollup": "^0.38.0",
+    "rollup-config-webext": "^1.0.1",
     "xo": "^0.17.1"
   },
   "author": "Federico Brigante <npm@bfred.it> (https://twitter.com/bfred_it)",
   "license": "MIT",
   "scripts": {
+    "build": "cd src; each '**/*.js' -- rollup --config node:webext $PWD/%p --output $PWD/../extension/%p",
+    "watch:build": "npm run build --silent -- --watch",
+    "watch:test": "onchange 'src/*.js' --initial -- xo --fix",
+    "watch": "run-p --silent watch:*",
+    "release": "webstore upload --source=extension --auto-publish",
     "test": "xo",
-    "watch": "onchange '*/*.js' '*/*/*.js' --initial -- xo --fix",
-    "version-from-git-tag": "dot-json extension/manifest.json version $(git describe --abbrev=0 --tags | sed s/v//)",
-    "release": "webstore upload --source=extension --auto-publish"
+    "version-from-git-tag": "dot-json extension/manifest.json version $(git describe --abbrev=0 --tags | sed s/v//)"
   },
   "xo": {
     "envs": [
       "browser",
       "webextensions"
     ],
+    "ignores": [
+      "extension/**"
+    ],
     "rules": {
       "comma-dangle": [
         "error",
         "only-multiline"
-      ]
+      ],
+      "no-new": 0
     }
   },
   "dependencies": {

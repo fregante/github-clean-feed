@@ -16,7 +16,7 @@ function mapFromValues(arrayLike) {
 }
 class ConcatenableSet extends Set {
 	concat(iterable) {
-		for (const item of iterable) {
+		for (let item of iterable) {
 			this.add(item);
 		}
 		return this;
@@ -193,15 +193,21 @@ function apply(options, insertionPoint) {
 
 function init(options) {
 	const newsFeed = $('#dashboard .news');
-	apply(options);
+
+	const run = (observer, nodes) => {
+		apply(options, nodes); // add boxes before the first new element
+		setTimeout(() => { // Firefox goes in a loop without this timer
+			observer.observe(newsFeed, {childList: true});
+		}, 10);
+	};
 
 	// track future updates
-	const observer = new MutationObserver(([{addedNodes}]) => {
+	const observer = new MutationObserver(([{addedNodes}], observer) => {
 		observer.disconnect(); // disable to prevent loops
-		apply(options, addedNodes[0]);// add boxes before the first new element
-		observer.observe(newsFeed, {childList: true});
+		run(observer, addedNodes[0]);
 	});
-	observer.observe(newsFeed, {childList: true});
+
+	run(observer);
 }
 
 const domReady = new Promise(resolve => {
