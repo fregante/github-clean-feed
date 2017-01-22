@@ -47,68 +47,9 @@ function fromHTML(html, all) {
 	return helper.firstElementChild;
 }
 
-function actorsHTML(actors) {
-	return actors.map(user => `<a href="/${user}">${user}</a>`).join(', ');
-}
-
-function runAction({action, elements, title, holder, actorsOnHover, icon = '', avoidDuplicates}) {
-	if (action === 'off') {
-		return;
-	}
-	if (action === 'hide') {
-		elements.forEach(elements => elements.remove());
-		return;
-	}
-
-	const map = elements.reduce((repos, item) => {
-		const user = item.querySelector('.title a:nth-child(1)').textContent;
-		const repo = item.querySelector('.title a:nth-child(2)').textContent;
-		repos[repo] = repos[repo] || new ArraySet();
-		repos[repo].add(user);
-		return repos;
-	}, new ObjectMap());
-
-	if (!map.size) {
-		return;
-	}
-	const groupEl = fromHTML(`<div class="boxed-group flush ghgn-group"><h3>${title}</h3></div>`);
-	const listEl = fromHTML('<ul class="boxed-group-inner mini-repo-list"></ul>');
-
-	map.forEach((actors, repoUrl) => {
-		if (avoidDuplicates && $(`.ghgn-group a[href="/${repoUrl}"]`)) {
-			return;
-		}
-		const [owner, repo] = repoUrl.split('/');
-		listEl.appendChild(fromHTML(`
-			<li class="public source ghgn-actors-${actorsOnHover ? 'hover' : 'always'}">
-				<div class="mini-repo-list-item">
-					<a href="/${repoUrl}" class="css-truncate">
-						${iconRepo}
-						<span class="repo-and-owner css-truncate-target">
-							<span class="owner css-truncate-target">${owner}</span>/<span class="repo">${repo}</span>
-						</span>
-					</a>
-					<span class="stars ghgn-stars">
-						${actors.size > 1 ? actors.size : ''}
-						${icon}
-					</span>
-					<span class="ghgn-actors">${actorsHTML(actors)}</span>
-				</div>
-			</li>
-		`));
-	});
-
-	if (listEl.children.length) {
-		groupEl.appendChild(listEl);
-		holder.appendChild(groupEl);
-	}
-	elements.forEach(element => element.remove());
-}
-
 function apply(options, insertionPoint) {
 	console.log('Updating')
 	const holder = fromHTML('<div class="ghgn-holder"><i>');
-	const {avoidDuplicates, actorsOnHover} = options;
 
 	const originalEvents = $$('.alert.create', '.octicon-repo').and('.alert:-webkit-any(.watch_started,.public,.fork,.issues_comment,.commit_comment,.issues_opened)');
 
@@ -225,72 +166,6 @@ function apply(options, insertionPoint) {
 		}
 		repoEventsEl.appendChild(repoEventsListEl);
 		holder.appendChild(repoEventsEl);
-	});
-
-	if (holder.children.length) {
-		if (!insertionPoint) {
-			const newsFeed = $('#dashboard .news');
-			const accountSwitcher = $('.account-switcher');
-			insertionPoint = newsFeed.children[accountSwitcher ? 1 : 0];
-		}
-		insertionPoint.parentNode.insertBefore(holder, insertionPoint);
-	}
-	return;
-
-	// handle stars
-	runAction({
-		action: options.starredRepos,
-		elements: $$('.alert.watch_started'),
-		title: 'Starred repositories',
-		icon: iconStar,
-		actorsOnHover,
-		avoidDuplicates,
-		holder,
-	});
-
-	// handle forks
-	runAction({
-		action: options.forkedRepos,
-		elements: $$('.alert.fork'),
-		title: 'Forked repositories',
-		icon: iconFork,
-		actorsOnHover,
-		avoidDuplicates,
-		holder,
-	});
-
-	// new/public repos
-	runAction({
-		action: options.newRepos,
-		elements: $$('.alert.create', '.octicon-repo').and('.alert.public'),
-		title: 'New repositories',
-		actorsOnHover,
-		avoidDuplicates,
-		holder,
-	});
-
-	// possibly hide new/deleted branches
-	runAction({
-		action: options.branches ? 'hide' : 'off',
-		elements: $$('.alert.create', '.octicon-git-branch').and('.alert.delete'),
-	});
-
-	// possibly hide tags and releases
-	runAction({
-		action: options.tags ? 'hide' : 'off',
-		elements: $$('.alert.create', '.octicon-tag').and('.alert.release'),
-	});
-
-	// possibly hide pushed commits
-	runAction({
-		action: options.commits ? 'hide' : 'off',
-		elements: $$('.alert.push'),
-	});
-
-	// possibly hide collaborator events
-	runAction({
-		action: options.collaborators ? 'hide' : 'off',
-		elements: $$('.alert.member_add'),
 	});
 
 	if (holder.children.length) {
