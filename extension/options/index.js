@@ -1,45 +1,40 @@
-/* global OptMan */
-const options = new OptMan();
-options.createForm(
-	OptMan.title('Starred repositories'),
-	OptMan.radio('starredRepos', {
+/* global OptMan, OptDom */
+const form = OptDom.join(
+	OptDom.title('Starred repositories'),
+	OptDom.radio('starredRepos', {
 		group: 'Grouped',
 		hide: 'Hidden',
 		off: 'Untouched',
-	}, {
-		oneLine: true,
 	}),
 
-	OptMan.title('Forked repositories'),
-	OptMan.radio('forkedRepos', {
+	OptDom.title('Forked repositories'),
+	OptDom.radio('forkedRepos', {
 		group: 'Grouped',
 		hide: 'Hidden',
 		off: 'Untouched',
-	}, {
-		oneLine: true,
 	}),
 
-	OptMan.title('New and newly-public repositories'),
-	OptMan.radio('newRepos', {
+	OptDom.title('New and newly-public repositories'),
+	OptDom.radio('newRepos', {
 		group: 'Grouped',
 		hide: 'Hidden',
 		off: 'Untouched',
-	}, {
-		oneLine: true,
 	}),
 
-	OptMan.title('Display'),
-	OptMan.checkbox('actorsOnHover', 'Only show usernames when hovering the event icon'),
-	OptMan.checkbox('collaborators', 'Hide <em>collaborator added</em> events'),
-	OptMan.checkbox('branches', 'Hide <em>new</em> and <em>deleted</em> branches'),
-	OptMan.checkbox('tags', 'Hide <em>releases</em> and <em>tags</em>'),
-	OptMan.checkbox('commits', 'Hide pushed commits'),
+	OptDom.title('Display'),
+	OptDom.checkbox('actorsOnHover', 'Only show usernames when hovering the event icon'),
+	OptDom.checkbox('collaborators', 'Hide <em>collaborator added</em> events'),
+	OptDom.checkbox('branches', 'Hide <em>new</em> and <em>deleted</em> branches'),
+	OptDom.checkbox('tags', 'Hide <em>releases</em> and <em>tags</em>'),
+	OptDom.checkbox('commits', 'Hide pushed commits'),
 
-	OptMan.title('Utilities'),
-	OptMan.checkbox('loadMore', 'Load one more page automatically'),
-	OptMan.checkbox('avoidDuplicates', 'Avoid duplicates across feed pages'),
+	OptDom.title('Utilities'),
+	OptDom.checkbox('loadMore', 'Load one more page automatically'),
+	OptDom.checkbox('avoidDuplicates', 'Avoid duplicates across feed pages'),
 	''
 );
 
-document.querySelector('#options-form').appendChild(options.form);
+document.querySelector('#options-form').appendChild(form);
+
+new OptMan().syncForm(form);
 
