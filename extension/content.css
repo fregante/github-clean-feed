@@ -61,3 +61,19 @@
  	height: 16px !important;
  	width: 14px !important;
  }
+
+/**
+ * Add pages separator
+ */
+.ghgn-holder {
+	counter-increment: ghgn-page;
+}
+.ghgn-holder ~ .ghgn-holder:before {
+	display: block;
+	margin-top: 1em;
+	margin-bottom: 0.2em;
+	font-size: 1.5em;
+	content: "Page " counter(ghgn-page);
+	opacity: 0.4;
+	padding-left: 45px;
+}
