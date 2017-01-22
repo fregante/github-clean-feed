@@ -19,7 +19,7 @@ class OptDom {
 	static radio(name, values, {className} = {}) {
 		const html = [];
 		html.push(`<div class="OptDom-radio ${OptDom._parseClasses(className)}">`);
-		for (const value of Object.keys(values)) {
+		for (let value of Object.keys(values)) {
 			html.push(`
 				<label>
 					<input name="${name}" type="radio" value="${value}">
