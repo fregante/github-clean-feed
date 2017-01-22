@@ -29,7 +29,9 @@
         {
             "matches": [
                 "https://github.com/",
-                "https://github.com/orgs/*/dashboard"
+                "https://github.com/dashboard/index/*",
+                "https://github.com/orgs/*/dashboard",
+                "https://github.com/orgs/*/dashboard/index/*"
             ],
             "css": [
                 "content.css"
