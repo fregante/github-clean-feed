@@ -3,11 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
   "devDependencies": {
     "chrome-webstore-upload-cli": "^1.0.0",
     "dot-json": "^1.0.3",
-    "xo": "*"
+    "xo": "^0.17.1"
   },
   "author": "Federico Brigante <npm@bfred.it> (https://twitter.com/bfred_it)",
   "license": "MIT",
@@ -17,17 +16,15 @@
     "release": "webstore upload --source=extension --auto-publish"
   },
   "xo": {
-    "esnext": true,
     "envs": [
       "browser",
       "webextensions"
     ],
-    "ignores": [
-      "node_modules/**"
-    ],
     "rules": {
-      "prefer-template": 0,
-      "comma-dangle": ["error", "always-multiline"]
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ]
     }
   }
 }
