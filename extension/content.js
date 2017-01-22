@@ -14,17 +14,21 @@ function mapFromValues(arrayLike) {
 		return list;
 	}, {});
 }
+class ConcatenableSet extends Set {
+	concat(iterable) {
+		for (const item of iterable) {
+			this.add(item);
+		}
+		return this;
+	}
+}
 
 const $ = selector => document.querySelector(selector);
 const $$ = (selector, has) => {
-	let elements = Array.from(document.querySelectorAll(selector));
+	const elements = Array.from(document.querySelectorAll(selector));
 	if (has) {
-		elements = elements.filter(el => el.querySelector(has));
+		return elements.filter(el => el.querySelector(has));
 	}
-	elements.and = function () {
-		elements.splice(0, 0, ...$$(...arguments));
-		return elements;
-	};
 	return elements;
 };
 
@@ -43,9 +47,30 @@ function apply(options, insertionPoint) {
 	console.log('Updating');
 	const holder = fromHTML('<div class="ghgn-holder"><i>');
 
-	const originalEvents = $$('.alert.create', '.octicon-repo').and('.alert:-webkit-any(.watch_started,.public,.fork,.issues_comment,.commit_comment,.issues_opened)');
+	const originalEvents = new ConcatenableSet();
 
-	const map = originalEvents.reduce((repos, originalEvent) => {
+	const byType = {
+		starredRepos: $$('.alert.watch_started'),
+		forkedRepos: $$('.alert.fork'),
+		newRepos: $$('.alert.create', '.octicon-repo').concat($$('.alert.public')),
+		comments: $$('.alert.commit_comment, .alert.issues_comment'),
+		newIssues: $$('.alert.issues_opened'),
+		hideBranches: $$('.alert.create', '.octicon-git-branch').concat($$('.alert.delete')),
+		hideTags: $$('.alert.create', '.octicon-tag').concat($$('.alert.release')),
+		hideCommits: $$('.alert.push'),
+		hideCollaborators: $$('.alert.member_add'),
+		hideClosedIssues: $$('.alert.issues_closed')
+	};
+
+	Object.keys(byType).forEach(type => {
+		if (options[type] === 'group') {
+			originalEvents.concat(byType[type]);
+		} else if (options[type] === 'hide' || options[type] === true) {
+			byType[type].forEach(el => el.remove());
+		}
+	});
+
+	const map = Array.from(originalEvents).reduce((repos, originalEvent) => {
 		const icon = originalEvent.querySelector('svg');
 		const actorEl = originalEvent.querySelector('.title a:first-child');
 		const eventEl = originalEvent.querySelector('.title a:nth-child(2)');
@@ -178,6 +203,7 @@ function init(options) {
 	});
 	observer.observe(newsFeed, {childList: true});
 }
+
 const domReady = new Promise(resolve => {
 	(function check() {
 		if (document.querySelector('.ajax-pagination-form')) {

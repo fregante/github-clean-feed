@@ -19,15 +19,15 @@ footer {
 footer a {
     color: inherit;
 }
-.one-line-labels label {
+.one-line label {
     display: inline-block;
 }
-.one-line-labels label:not(:last-child) {
+.one-line label:not(:last-child) {
     margin-right: 0.5em;
 }
-h3 + .one-line-labels label{
+h3 + .one-line label{
     margin-top: 0;
 }
-.one-line-labels + h3 {
+.one-line + h3 {
     margin-top: 1em;
 }

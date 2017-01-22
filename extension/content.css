@@ -32,21 +32,9 @@
 }
 
 /**
- * Hide unwanted events
- * NOT FINAL
- */
-.alert.delete,
-.alert.issues_closed,
-.alert.create,
-.alert.push,
-.alert.member_add {
-	display: none;
-}
-
-/**
  * Make comments wrap correctly
  */
-.news .alert .simple {
+.ghgn-holder .alert .simple {
 	display: flex;
 }
 .news .alert .octicon {
