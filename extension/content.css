@@ -42,3 +42,14 @@
 .alert.member_add {
 	display: none;
 }
+
+/**
+ * Make comments wrap correctly
+ */
+.news .alert .simple {
+	display: flex;
+}
+.news .alert .octicon {
+	flex-shrink: 0;
+	margin-right: 0.3em;
+}
