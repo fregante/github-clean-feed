@@ -8,6 +8,9 @@
         "https://github.com/*",
         "storage"
     ],
+    "icons": {
+        "128": "icon128.png"
+    },
     "applications": {
         "gecko": {
             "id": "github-clean-feed@bfred.it",
