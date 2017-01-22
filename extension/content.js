@@ -54,6 +54,7 @@ function apply(options, insertionPoint) {
 	const originalEvents = $$('.alert.create', '.octicon-repo').and('.alert:-webkit-any(.watch_started,.public,.fork,.issues_comment,.commit_comment,.issues_opened)');
 
 	const map = originalEvents.reduce((repos, originalEvent) => {
+		const icon = originalEvent.querySelector('svg');
 		const actorEl = originalEvent.querySelector('.title a:first-child');
 		const eventEl = originalEvent.querySelector('.title a:nth-child(2)');
 		const repo = eventEl.textContent.replace(/[#@].*/, '');
@@ -68,6 +69,9 @@ function apply(options, insertionPoint) {
 			relatedEl = originalEvent.querySelector('.title a:last-child');
 		} else if (classes.create || classes.public) {
 			type = 'create';
+		} else if (icon.classList.contains('octicon-git-pull-request')) {
+			type = 'pr';
+			relatedEl = originalEvent.querySelector('blockquote');
 		} else if (classes.issues_comment || classes.commit_comment || classes.issues_opened) {
 			type = 'comment';
 			relatedEl = originalEvent.querySelector('blockquote');
@@ -99,8 +103,7 @@ function apply(options, insertionPoint) {
 				el = fromHTML(`
 					<div class="simple">
 						${icons[event.type]}
-						<div class="title">
-						</div>
+						<div class="title"></div>
 					</div>
 				`);
 				event.repoEl.textContent = '';
@@ -127,6 +130,7 @@ function apply(options, insertionPoint) {
 				case 'create':
 					detailsEl.textContent = ' created';
 					break;
+				case 'pr':
 				case 'comment':
 					event.eventEl.textContent = event.eventEl.textContent.replace(/[^#]+/, '');
 					detailsEl.appendChild(document.createTextNode(' '));
