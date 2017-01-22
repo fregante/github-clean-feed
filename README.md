@@ -2,18 +2,6 @@
 
 > Browser Extension: Group news feed by repo
 
-Every part is optional:
-
-- Groups new stars
-- Groups new forks
-- Groups new repos and newly-public repos
-- Groups issues and PRs
-- Groups comments
-- Hides branch creation/deletion
-- Hides new commits
-- Hides "collaborator added" events
-- Hides tags and releases
-
 ![Screenshot](screenshot.png)
 
 ![Options screenshot](screenshot-options.png)
