@@ -37,12 +37,9 @@ class OptMan {
 
 	set(newOptions, callback) {
 		const promise = new Promise(resolve => {
-			this.get((options = {}) => {
-				Object.assign(options, newOptions);
-				chrome.storage.sync.set({
-					[this.storageName]: options,
-				}, resolve);
-			});
+			chrome.storage.sync.set({
+				[this.storageName]: newOptions,
+			}, resolve);
 		}).then(callback);
 
 		if (!callback) {
