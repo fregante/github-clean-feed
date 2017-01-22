@@ -38,3 +38,10 @@ document.querySelector('#options-form').appendChild(form);
 
 new OptMan().syncForm(form);
 
+// chrome.storage.onChanged.addListener(changes => {
+// 	const fields = {};
+// 	for (const name of Object.keys(changes)) {
+// 		fields[name] = changes[name].newValue;
+// 	}
+// 	updateInputs(fields);
+// });
