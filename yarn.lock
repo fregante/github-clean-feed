@@ -2696,6 +2696,10 @@ webext-inject-on-install@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/webext-inject-on-install/-/webext-inject-on-install-1.0.1.tgz#ce86e8f4ae061a131832635c9f595a0f2478392c"
 
+webext-options-sync@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/webext-options-sync/-/webext-options-sync-0.6.1.tgz#735c04a0c2398ba9368b76769c3705a7e08a6b4b"
+
 which@^1.2.9:
   version "1.2.12"
   resolved "https://registry.yarnpkg.com/which/-/which-1.2.12.tgz#de67b5e450269f194909ef23ece4ebe416fa1192"

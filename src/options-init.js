@@ -1,4 +1,5 @@
-/* globals OptSync */
+import OptSync from 'webext-options-sync';
+
 new OptSync().define({
 	defaults: {
 		starredRepos: 'group',
@@ -13,6 +14,6 @@ new OptSync().define({
 		hideClosedIssues: true,
 	},
 	migrations: [
-		OptSync.migrationRemoveUnused
+		OptSync.migrations.removeUnused
 	],
 });

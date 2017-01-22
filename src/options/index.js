@@ -1,4 +1,6 @@
-/* global OptSync, OptDom */
+/* global OptDom */
+import OptSync from 'webext-options-sync';
+
 const form = OptDom.join(
 	OptDom.title('Starred repositories'),
 	OptDom.radio('starredRepos', {
