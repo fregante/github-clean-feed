@@ -319,7 +319,12 @@ function init(options) {
 	if (options.loadMore) {
 		const btn = $('.ajax-pagination-btn');
 		if (btn) {
+			// GH might not be ready yet,
+			// so don't risk submitting a non-ajaxed form.
+			const preventDefault = e => e.preventDefault();
+			btn.form.addEventListener('submit', preventDefault);
 			btn.click();
+			btn.form.removeEventListener('submit', preventDefault);
 		}
 	}
 }
