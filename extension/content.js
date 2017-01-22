@@ -91,14 +91,7 @@ function apply(options, insertionPoint) {
 		const [owner, repo] = repoUrl.split('/');
 		const repoEventsEl = fromHTML(`<div class="alert">`);
 		const repoEventsListEl = fromHTML(`<div class="body">`);
-		let sameType;
 		Array.from(events).forEach((event, i) => {
-			if (sameType === undefined) {
-				sameType = event.type;
-			} else if (sameType !== event.type) {
-				sameType = false;
-			}
-
 			let el;
 			if (i === 0) {
 				el = fromHTML(`
@@ -150,16 +143,11 @@ function apply(options, insertionPoint) {
 			repoEventsListEl.appendChild(el);
 		});
 		try {
-			if (sameType) {
-				repoEventsListEl.querySelector('svg').classList.add('dashboard-event-icon');
-				Array.from(repoEventsListEl.querySelectorAll('svg')).forEach((icon, i) => {
-					if (i > 0) {
-						icon.remove();
-					}
-				});
-			} else {
-				repoEventsListEl.querySelector('svg').remove();
+			if (events.size > 1) {
+				const icon = repoEventsListEl.querySelector('svg');
+				icon.parentNode.replaceChild(fromHTML(iconRepo), icon);
 			}
+			repoEventsListEl.querySelector('svg').classList.add('dashboard-event-icon');
 		} catch (err) {
 			console.error(err);
 		}
