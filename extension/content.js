@@ -36,21 +36,6 @@ const $$ = (selector, has) => {
 	return elements;
 };
 
-function RepoMap() {
-	return new Proxy(new ObjectMap(), {
-		get(target, property) {
-			return target[property] || new ArraySet();
-		},
-		has(target, property) {
-			return property in target;
-		},
-		set(target, property, value) {
-			target[property] = value;
-			return value;
-		},
-	});
-}
-
 function fromHTML(html, all) {
 	const helper = document.createElement('div');
 	helper.innerHTML = html;
