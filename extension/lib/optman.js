@@ -75,7 +75,7 @@ class OptMan {
 						break;
 				}
 			} else {
-				console.warn('Stored option', name, options[name], 'was not found on the page', options[name]);
+				console.warn('Stored option {', name, ':', options[name], '} was not found on the page');
 			}
 		});
 	}
