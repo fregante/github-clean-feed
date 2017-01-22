@@ -195,4 +195,14 @@ function init(options) {
 		}
 	}
 }
-new OptMan().get(init);
+const domReady = new Promise(resolve => {
+	(function check() {
+		if (document.querySelector('.ajax-pagination-form')) {
+			resolve();
+		} else {
+			requestAnimationFrame(check);
+		}
+	})();
+});
+const options = new OptMan().get();
+domReady.then(() => options).then(init);
