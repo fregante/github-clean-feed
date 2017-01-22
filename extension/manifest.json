@@ -36,6 +36,7 @@
             ],
             "js": [
                 "lib/options-manager.js",
+                "lib/object-like-map.js",
                 "content.js"
             ],
             "run_at": "document_end"

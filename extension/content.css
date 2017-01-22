@@ -1,12 +1,46 @@
-.ghgn-actors a {
-	color: inherit;
+.alert blockquote,
+.alert blockquote p {
+	display: inline;
 }
 
 /**
- * Keep a distance with the existing feed events
+ * Less weight to event details
  */
-.alert + .ghgn-holder {
-	margin-top: 20px;
+.ghgn-details {
+	opacity: 0.7;
+}
+
+/**
+ * Compact view
+ * NOT FINAL
+ */
+.news .alert {
+	padding-bottom: 0.5em !important;
+}
+.news .alert .body {
+	padding-top: 0.4em !important;
+}
+.news .alert .dashboard-event-icon {
+	top: 9px !important;
+}
+
+/**
+ * Day-grouping
+ */
+.news .alert.separator {
+	padding-top: 1em;
+}
+
+/**
+ * Hide unwanted events
+ * NOT FINAL
+ */
+.alert.delete,
+.alert.issues_closed,
+.alert.create,
+.alert.push,
+.alert.member_add {
+	display: none;
 }
 
 /**
