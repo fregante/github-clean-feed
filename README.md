@@ -1,6 +1,6 @@
 # GitHub Clean Feed [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/failppjoidijbialknplliogdmabniaf.svg)](https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf) [![Auto deployment via travis](https://img.shields.io/badge/publishing-automated-blue.svg)](https://travis-ci.org/bfred-it/github-clean-feed)
 
-> Browser Extension: Group news feed by repo
+> Browser Extension: Group news feed by repo. [Download for Chrome](https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf)
 
 ![Screenshot](screenshot.png)
 
