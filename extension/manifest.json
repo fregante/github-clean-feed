@@ -17,8 +17,7 @@
     "background": {
         "scripts": [
             "lib/optman.js",
-            "options-init.js",
-            "lib/enable-all-current-tabs.js"
+            "options-init.js"
         ]
     },
     "options_ui": {

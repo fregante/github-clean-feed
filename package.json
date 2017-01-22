@@ -28,5 +28,8 @@
         "always-multiline"
       ]
     }
+  },
+  "dependencies": {
+    "webext-inject-on-install": "^1.0.1"
   }
 }
