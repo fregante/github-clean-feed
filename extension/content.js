@@ -48,7 +48,7 @@ function fromHTML(html, all) {
 }
 
 function apply(options, insertionPoint) {
-	console.log('Updating')
+	console.log('Updating');
 	const holder = fromHTML('<div class="ghgn-holder"><i>');
 
 	const originalEvents = $$('.alert.create', '.octicon-repo').and('.alert:-webkit-any(.watch_started,.public,.fork,.issues_comment,.commit_comment,.issues_opened)');
@@ -124,24 +124,24 @@ function apply(options, insertionPoint) {
 				`);
 			}
 			const detailsEl = fromHTML(`<span class="ghgn-details">`);
-			switch(event.type) {
-			case 'fork':
-				detailsEl.textContent = ' to ';
-				detailsEl.appendChild(event.relatedEl);
-				break;
-			case 'create':
-				detailsEl.textContent = ' created';
-				break;
-			case 'comment':
-				detailsEl.textContent = ' by ';
-				detailsEl.appendChild(event.actorEl);
-				detailsEl.appendChild(document.createTextNode(': '));
-				detailsEl.appendChild(event.relatedEl);
-				break;
-			default:
-				detailsEl.textContent = ' by ';
-				detailsEl.appendChild(event.actorEl);
-				break;
+			switch (event.type) {
+				case 'fork':
+					detailsEl.textContent = ' to ';
+					detailsEl.appendChild(event.relatedEl);
+					break;
+				case 'create':
+					detailsEl.textContent = ' created';
+					break;
+				case 'comment':
+					detailsEl.textContent = ' by ';
+					detailsEl.appendChild(event.actorEl);
+					detailsEl.appendChild(document.createTextNode(': '));
+					detailsEl.appendChild(event.relatedEl);
+					break;
+				default:
+					detailsEl.textContent = ' by ';
+					detailsEl.appendChild(event.actorEl);
+					break;
 			}
 
 			detailsEl.appendChild(document.createTextNode(' '));
@@ -150,7 +150,6 @@ function apply(options, insertionPoint) {
 			repoEventsListEl.appendChild(el);
 		});
 		try {
-
 			if (sameType) {
 				repoEventsListEl.querySelector('svg').classList.add('dashboard-event-icon');
 				Array.from(repoEventsListEl.querySelectorAll('svg')).forEach((icon, i) => {
@@ -161,14 +160,14 @@ function apply(options, insertionPoint) {
 			} else {
 				repoEventsListEl.querySelector('svg').remove();
 			}
-		} catch (e) {
-			console.error(e);
+		} catch (err) {
+			console.error(err);
 		}
 		repoEventsEl.appendChild(repoEventsListEl);
 		holder.appendChild(repoEventsEl);
 	});
 
-	if (holder.children.length) {
+	if (holder.children.length > 0) {
 		if (!insertionPoint) {
 			const newsFeed = $('#dashboard .news');
 			const accountSwitcher = $('.account-switcher');

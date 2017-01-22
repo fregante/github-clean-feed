@@ -8,15 +8,15 @@
 				return target.set(property, value);
 			},
 			get(target, property) {
-				switch(property) {
-				case 'size':
-					return target[property];
-				case 'forEach':
-					return target[property].bind(target);
-				default:
-					return target.get(property);
+				switch (property) {
+					case 'size':
+						return target[property];
+					case 'forEach':
+						return target[property].bind(target);
+					default:
+						return target.get(property);
 				}
-			}
+			},
 		});
 	};
 }
