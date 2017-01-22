@@ -1,4 +1,4 @@
-# GitHub Grouped News [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/failppjoidijbialknplliogdmabniaf.svg)](https://chrome.google.com/webstore/detail/github-grouped-news/failppjoidijbialknplliogdmabniaf) [![Auto deployment via travis](https://img.shields.io/badge/publishing-automated-blue.svg)](https://travis-ci.org/bfred-it/GitHub-Grouped-News)
+# GitHub Clean Feed [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/failppjoidijbialknplliogdmabniaf.svg)](https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf) [![Auto deployment via travis](https://img.shields.io/badge/publishing-automated-blue.svg)](https://travis-ci.org/bfred-it/github-clean-feed)
 
 > Browser Extension: Group news feed by repo
 
@@ -7,16 +7,12 @@ Every part is optional:
 - Groups new stars
 - Groups new forks
 - Groups new repos and newly-public repos
+- Groups issues and PRs
+- Groups comments
 - Hides branch creation/deletion
 - Hides new commits
 - Hides "collaborator added" events
 - Hides tags and releases
-
-Untouched/ungrouped events remain in the main feed.
-
-In the future:
-
-- Organize comments, issues, PRs
 
 ![Screenshot](screenshot.png)
 
@@ -24,7 +20,7 @@ In the future:
 
 ## Chrome
 
-https://chrome.google.com/webstore/detail/github-grouped-news/failppjoidijbialknplliogdmabniaf
+https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf
 
 ## Firefox
 

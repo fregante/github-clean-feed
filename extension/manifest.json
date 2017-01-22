@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "GitHub Grouped News",
+    "name": "GitHub Clean Feed",
     "description": "Group news feed by repo",
     "version": "0.0.0",
     "author": "Federico Brigante",
@@ -10,7 +10,7 @@
     ],
     "applications": {
         "gecko": {
-            "id": "github-grouped-news@bfred.it",
+            "id": "github-clean-feed@bfred.it",
             "strict_min_version": "45.0"
         }
     },
