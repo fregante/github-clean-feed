@@ -6,7 +6,7 @@
 /**
  * Less weight to event details
  */
-.ghgn-details {
+.ghcf-details {
 	opacity: 0.7;
 }
 
@@ -34,7 +34,7 @@
 /**
  * Make comments wrap correctly
  */
-.ghgn-holder .alert .simple {
+.ghcf-holder .alert .simple {
 	display: flex;
 }
 .news .alert .octicon {
@@ -53,15 +53,15 @@
 /**
  * Add pages separator
  */
-.ghgn-holder {
-	counter-increment: ghgn-page;
+.ghcf-holder {
+	counter-increment: ghcf-page;
 }
-.ghgn-holder ~ .ghgn-holder:before {
+.ghcf-holder ~ .ghcf-holder:before {
 	display: block;
 	margin-top: 1em;
 	margin-bottom: 0.2em;
 	font-size: 1.5em;
-	content: "Page " counter(ghgn-page);
+	content: "Page " counter(ghcf-page);
 	opacity: 0.4;
 	padding-left: 45px;
 }

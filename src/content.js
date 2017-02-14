@@ -47,7 +47,7 @@ function fromHTML(html, all) {
 
 function apply(options, insertionPoint) {
 	console.log('Updating');
-	const holder = fromHTML('<div class="ghgn-holder"><i>');
+	const holder = fromHTML('<div class="ghcf-holder"><i>');
 
 	const originalEvents = new ConcatenableSet();
 
@@ -116,6 +116,14 @@ function apply(options, insertionPoint) {
 		const [owner, repo] = repoUrl.split('/');
 		const repoEventsEl = fromHTML(`<div class="alert">`);
 		const repoEventsListEl = fromHTML(`<div class="body">`);
+
+		repoEventsEl.classList.add(`ghcf-repo`);
+		repoEventsEl.classList.add(`ghcf-repo-user-${owner}`);
+		repoEventsEl.classList.add(`ghcf-repo-name-${repo}`);
+		if (events.size === 1) {
+			repoEventsEl.classList.add(`ghcf-actor-user-${[...events][0].actorEl.textContent}`);
+		}
+
 		Array.from(events).forEach((event, i) => {
 			let el;
 			if (i === 0) {
@@ -139,8 +147,15 @@ function apply(options, insertionPoint) {
 						</div>
 					</div>
 				`);
+			} else {
+				el.classList.add(`ghcf-event`);
+				el.classList.add(`ghcf-actor-user-${event.actorEl.textContent}`);
 			}
-			const detailsEl = fromHTML(`<span class="ghgn-details">`);
+
+			el.classList.add(`ghcf-repo-user-${owner}`);
+			el.classList.add(`ghcf-repo-name-${repo}`);
+
+			const detailsEl = fromHTML(`<span class="ghcf-details">`);
 			switch (event.type) {
 				case 'fork':
 					detailsEl.textContent = ' to ';
