@@ -23,7 +23,7 @@
     "watch": "run-p --silent watch:*",
     "release": "webstore upload --source=extension --auto-publish",
     "test": "xo",
-    "version-from-git-tag": "dot-json extension/manifest.json version $(git describe --abbrev=0 --tags | sed s/v//)"
+    "update-version": "dot-json extension/manifest.json version $(date +%y.%-m.%d.%-H%M)"
   },
   "xo": {
     "envs": [

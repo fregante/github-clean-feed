@@ -6,7 +6,7 @@ env:
     - EXTENSION_ID=failppjoidijbialknplliogdmabniaf
 deploy:
   provider: script
-  script: npm run build; npm run version-from-git-tag; npm run release
+  script: npm run build && npm run update-version && npm run release
+  skip_cleanup: true
   on:
     branch: master
-    tags: true
