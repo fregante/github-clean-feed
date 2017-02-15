@@ -3,38 +3,17 @@ import OptSync from 'webext-options-sync';
 import eskape from 'eskape';
 import domify from 'domify';
 import * as icons from '../libs/github-icons';
+import concatSets from '../libs/concatenate-set';
+import mapFromValues from '../libs/map-from-values';
+import {$, $$} from '../libs/select';
 
 const domifyEscape = (...args) => domify(eskape(...args));
-
-function mapFromValues(arrayLike) {
-	return Array.from(arrayLike).reduce((list, cls) => {
-		list[cls] = true;
-		return list;
-	}, {});
-}
-class ConcatenableSet extends Set {
-	concat(iterable) {
-		for (let item of iterable) {
-			this.add(item);
-		}
-		return this;
-	}
-}
-
-const $ = selector => document.querySelector(selector);
-const $$ = (selector, has) => {
-	const elements = Array.from(document.querySelectorAll(selector));
-	if (has) {
-		return elements.filter(el => el.querySelector(has));
-	}
-	return elements;
-};
 
 function apply(options, insertionPoint) {
 	console.log('Updating');
 	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
 
-	const originalEvents = new ConcatenableSet();
+	const originalEvents = new Set();
 
 	const byType = {
 		starredRepos: $$('.alert.watch_started'),
@@ -51,7 +30,7 @@ function apply(options, insertionPoint) {
 
 	Object.keys(byType).forEach(type => {
 		if (options[type] === 'group') {
-			originalEvents.concat(byType[type]);
+			concatSets(originalEvents, byType[type]);
 		} else if (options[type] === 'hide' || options[type] === true) {
 			byType[type].forEach(el => el.remove());
 		}
