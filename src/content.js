@@ -9,34 +9,8 @@ import {$, $$} from '../libs/select';
 
 const domifyEscape = (...args) => domify(eskape(...args));
 
-function apply(options, insertionPoint) {
-	console.log('Updating');
-	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
-
-	const originalEvents = new Set();
-
-	const byType = {
-		starredRepos: $$('.alert.watch_started'),
-		forkedRepos: $$('.alert.fork'),
-		newRepos: $$('.alert.create', '.octicon-repo').concat($$('.alert.public')),
-		comments: $$('.alert.commit_comment, .alert.issues_comment'),
-		newIssues: $$('.alert.issues_opened'),
-		hideBranches: $$('.alert.create', '.octicon-git-branch').concat($$('.alert.delete')),
-		hideTags: $$('.alert.create', '.octicon-tag').concat($$('.alert.release')),
-		hideCommits: $$('.alert.push'),
-		hideCollaborators: $$('.alert.member_add'),
-		hideClosedIssues: $$('.alert.issues_closed')
-	};
-
-	Object.keys(byType).forEach(type => {
-		if (options[type] === 'group') {
-			concatSets(originalEvents, byType[type]);
-		} else if (options[type] === 'hide' || options[type] === true) {
-			byType[type].forEach(el => el.remove());
-		}
-	});
-
-	const map = Array.from(originalEvents).reduce((repos, originalEvent) => {
+function groupByRepo(events) {
+	return Array.from(events).reduce((repos, originalEvent) => {
 		const icon = originalEvent.querySelector('svg');
 		const actorEl = originalEvent.querySelector('.title a:first-child');
 		const eventEl = originalEvent.querySelector('.title a:nth-child(2)');
@@ -75,8 +49,33 @@ function apply(options, insertionPoint) {
 		originalEvent.remove();
 		return repos;
 	}, new ObjectMap());
+}
+function apply(options, insertionPoint) {
+	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
+	const byType = {
+		starredRepos: $$('.alert.watch_started'),
+		forkedRepos: $$('.alert.fork'),
+		newRepos: $$('.alert.create', '.octicon-repo').concat($$('.alert.public')),
+		comments: $$('.alert.commit_comment, .alert.issues_comment'),
+		newIssues: $$('.alert.issues_opened'),
+		hideBranches: $$('.alert.create', '.octicon-git-branch').concat($$('.alert.delete')),
+		hideTags: $$('.alert.create', '.octicon-tag').concat($$('.alert.release')),
+		hideCommits: $$('.alert.push'),
+		hideCollaborators: $$('.alert.member_add'),
+		hideClosedIssues: $$('.alert.issues_closed')
+	};
 
-	map.forEach((events, repoUrl) => {
+	const originalEvents = new Set();
+
+	Object.keys(byType).forEach(type => {
+		if (options[type] === 'group') {
+			concatSets(originalEvents, byType[type]);
+		} else if (options[type] === 'hide' || options[type] === true) {
+			byType[type].forEach(el => el.remove());
+		}
+	});
+
+	groupByRepo(originalEvents).forEach((events, repoUrl) => {
 		const [owner, repo] = repoUrl.split('/');
 		const repoEventsEl = domifyEscape`<div class="alert">`;
 		const repoEventsListEl = domifyEscape`<div class="body">`;
