@@ -1,5 +1,9 @@
 /* global ObjectMap */
 import OptSync from 'webext-options-sync';
+import eskape from 'eskape';
+import domify from 'domify';
+
+const domifyEscape = (...args) => domify(eskape(...args));
 
 const icons = {
 	star: '<svg aria-label="Stars" class="octicon octicon-star" height="16" role="img" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>',
@@ -34,20 +38,9 @@ const $$ = (selector, has) => {
 	return elements;
 };
 
-function fromHTML(html, all) {
-	const helper = document.createElement('div');
-	helper.innerHTML = html;
-	if (all) {
-		all = document.createDocumentFragment();
-		Array.from(helper.childNodes).map(all.appendChild, all);
-		return all;
-	}
-	return helper.firstElementChild;
-}
-
 function apply(options, insertionPoint) {
 	console.log('Updating');
-	const holder = fromHTML('<div class="ghcf-holder"><i>');
+	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
 
 	const originalEvents = new ConcatenableSet();
 
@@ -77,7 +70,7 @@ function apply(options, insertionPoint) {
 		const actorEl = originalEvent.querySelector('.title a:first-child');
 		const eventEl = originalEvent.querySelector('.title a:nth-child(2)');
 		const repo = eventEl.textContent.replace(/[#@].*/, '');
-		const repoEl = fromHTML(`<a href="/${repo}"></a>`);
+		const repoEl = domifyEscape`<a href="/${repo}"></a>`;
 		const classes = mapFromValues(originalEvent.classList);
 		let type;
 		let relatedEl;
@@ -114,8 +107,8 @@ function apply(options, insertionPoint) {
 
 	map.forEach((events, repoUrl) => {
 		const [owner, repo] = repoUrl.split('/');
-		const repoEventsEl = fromHTML(`<div class="alert">`);
-		const repoEventsListEl = fromHTML(`<div class="body">`);
+		const repoEventsEl = domifyEscape`<div class="alert">`;
+		const repoEventsListEl = domifyEscape`<div class="body">`;
 
 		repoEventsEl.classList.add(`ghcf-repo`);
 		repoEventsEl.classList.add(`ghcf-repo-user-${owner}`);
@@ -127,20 +120,20 @@ function apply(options, insertionPoint) {
 		Array.from(events).forEach((event, i) => {
 			let el;
 			if (i === 0) {
-				el = fromHTML(`
+				el = domify(`
 					<div class="simple">
 						${icons[event.type]}
 						<div class="title"></div>
 					</div>
 				`);
 				event.repoEl.textContent = '';
-				event.repoEl.appendChild(fromHTML(`${owner}/<strong>${repo}</strong>`, true));
+				event.repoEl.appendChild(domifyEscape`${owner}/<strong>${repo}</strong>`);
 				el.querySelector('.title').appendChild(event.repoEl);
 				repoEventsListEl.appendChild(el);
 			}
 
 			if (events.size > 1) {
-				el = fromHTML(`
+				el = domify(`
 					<div class="simple">
 						${icons[event.type] ? icons[event.type] : ''}
 						<div class="title">
@@ -155,7 +148,7 @@ function apply(options, insertionPoint) {
 			el.classList.add(`ghcf-repo-user-${owner}`);
 			el.classList.add(`ghcf-repo-name-${repo}`);
 
-			const detailsEl = fromHTML(`<span class="ghcf-details">`);
+			const detailsEl = domifyEscape`<span class="ghcf-details">`;
 			switch (event.type) {
 				case 'fork':
 					detailsEl.textContent = ' to ';
@@ -188,7 +181,7 @@ function apply(options, insertionPoint) {
 		try {
 			if (events.size > 1) {
 				const icon = repoEventsListEl.querySelector('svg');
-				icon.parentNode.replaceChild(fromHTML(icons.repo), icon);
+				icon.parentNode.replaceChild(domify(icons.repo), icon);
 			}
 			repoEventsListEl.querySelector('svg').classList.add('dashboard-event-icon');
 		} catch (err) {

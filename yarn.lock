@@ -546,6 +546,10 @@ doctrine@1.5.0, doctrine@^1.2.2:
     esutils "^2.0.2"
     isarray "^1.0.0"
 
+domify@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/domify/-/domify-1.4.0.tgz#11483617f764f8695975b4bdc79b14f0803b629b"
+
 dot-json@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/dot-json/-/dot-json-1.0.3.tgz#ddcfedaa3d95cbe93e2b1e45bfbdec1b93bc90e4"
@@ -672,6 +676,12 @@ escope@^3.6.0:
     es6-weak-map "^2.0.1"
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
+
+eskape@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eskape/-/eskape-1.2.0.tgz#070235f769adea416c2077ce218aa41f64b6d75f"
+  dependencies:
+    lodash.escape "^4.0.0"
 
 eslint-config-xo@^0.17.0:
   version "0.17.0"
@@ -1594,6 +1604,10 @@ lodash.camelcase@^4.1.1:
 lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
+
+lodash.escape@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.escape/-/lodash.escape-4.0.1.tgz#c9044690c21e04294beaa517712fded1fa88de98"
 
 lodash.kebabcase@^4.0.1:
   version "4.1.1"
