@@ -5,7 +5,6 @@
   "version": "0.0.0",
   "author": "Federico Brigante",
   "permissions": [
-    "https://github.com/*",
     "storage"
   ],
   "icons": {
@@ -30,6 +29,7 @@
     {
       "matches": [
         "https://github.com/",
+        "https://github.com/dashboard/*",
         "https://github.com/dashboard/index/*",
         "https://github.com/orgs/*/dashboard",
         "https://github.com/orgs/*/dashboard/index/*"
