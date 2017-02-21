@@ -1,5 +1,5 @@
-/* global OptDom */
 import OptSync from 'webext-options-sync';
+import OptDom from '../../libs/optdom';
 
 const form = OptDom.join(
 	OptDom.title('Starred repositories'),
