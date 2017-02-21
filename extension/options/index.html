@@ -2,7 +2,110 @@
 <meta charset="UTF-8">
 <title>GitHub Clean Feed options</title>
 <link rel="stylesheet" href="index.css">
-<form id="options-form"></form>
+<form id="options-form">
+	<h3>Starred repositories</h3>
+	<div class="one-line">
+		<label>
+			<input name=starredRepos type=radio value=group>
+			Group
+		</label>
+		<label>
+			<input name=starredRepos type=radio value=hide>
+			Hide
+		</label>
+		<label>
+			<input name=starredRepos type=radio value=off>
+			Do nothing
+		</label>
+	</div>
+
+	<h3>Forked repositories</h3>
+	<div class="one-line">
+		<label>
+			<input name=forkedRepos type=radio value=group>
+			Group
+		</label>
+		<label>
+			<input name=forkedRepos type=radio value=hide>
+			Hide
+		</label>
+		<label>
+			<input name=forkedRepos type=radio value=off>
+			Do nothing
+		</label>
+	</div>
+
+	<h3>New and newly-public repositories</h3>
+	<div class="one-line">
+		<label>
+			<input name=newRepos type=radio value=group>
+			Group
+		</label>
+		<label>
+			<input name=newRepos type=radio value=hide>
+			Hide
+		</label>
+		<label>
+			<input name=newRepos type=radio value=off>
+			Do nothing
+		</label>
+	</div>
+
+	<h3>New comments</h3>
+	<div class="one-line">
+		<label>
+			<input name=comments type=radio value=group>
+			Group
+		</label>
+		<label>
+			<input name=comments type=radio value=hide>
+			Hide
+		</label>
+		<label>
+			<input name=comments type=radio value=off>
+			Do nothing
+		</label>
+	</div>
+
+	<h3>New issues and PRs</h3>
+	<div class="one-line">
+		<label>
+			<input name=newIssues type=radio value=group>
+			Group
+		</label>
+		<label>
+			<input name=newIssues type=radio value=hide>
+			Hide
+		</label>
+		<label>
+			<input name=newIssues type=radio value=off>
+			Do nothing
+		</label>
+	</div>
+
+	<h3>Display</h3>
+	<label>
+		<input name=hideCollaborators type=checkbox>
+		Hide <em>collaborator added</em> events
+	</label>
+	<label>
+		<input name=hideBranches type=checkbox>
+		Hide <em>new</em> and <em>deleted</em> branches
+	</label>
+	<label>
+		<input name=hideTags type=checkbox>
+		Hide <em>releases</em> and <em>tags</em>
+	</label>
+	<label>
+		<input name=hideCommits type=checkbox>
+		Hide pushed commits
+	</label>
+	<label>
+		<input name=hideClosedIssues type=checkbox>
+		Hide closed issues
+	</label>
+
+</form>
 <footer>
     <a href="https://github.com/bfred-it/github-clean-feed">GitHub Clean Feed</a> – Options automatically saved
 </div>
