@@ -1,4 +1,3 @@
-/* global ObjectMap */
 import OptSync from 'webext-options-sync';
 import eskape from 'eskape';
 import domify from '../libs/html-to-dom';
@@ -44,11 +43,13 @@ function groupByRepo(events) {
 			relatedEl,
 			timeEl: originalEvent.querySelector('.time'),
 		};
-		repos[repo] = repos[repo] || new Set();
-		repos[repo].add(event);
+		if (!repos.has(repo)) {
+			repos.set(repo, new Set());
+		}
+		repos.get(repo).add(event);
 		originalEvent.remove();
 		return repos;
-	}, new ObjectMap());
+	}, new Map());
 }
 function apply(options, insertionPoint) {
 	const holder = domifyEscape`<div class="ghcf-holder"><i>`;

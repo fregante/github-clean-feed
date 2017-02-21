@@ -39,7 +39,6 @@
       ],
       "js": [
         "lib/optdom.js",
-        "lib/object-like-map.js",
         "content.js"
       ],
       "run_at": "document_start"
