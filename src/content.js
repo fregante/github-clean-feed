@@ -1,7 +1,7 @@
 /* global ObjectMap */
 import OptSync from 'webext-options-sync';
 import eskape from 'eskape';
-import domify from 'domify';
+import domify from '../libs/html-to-dom';
 import * as icons from '../libs/github-icons';
 import concatSets from '../libs/concatenate-set';
 import mapFromValues from '../libs/map-from-values';
