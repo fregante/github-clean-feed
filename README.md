@@ -8,7 +8,6 @@
 
 ## Install
 
-- [Google Chrome extension](https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf)
-- [Firefox add-on](https://addons.mozilla.org/en-US/firefox/addon/github-clean-feed/)
-
-You can install the Chrome extension in Opera by using [`Download Chrome Extension`](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/)
+  + [**Chrome** extension](https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf)
+  + [**Firefox** add-on](https://addons.mozilla.org/en-US/firefox/addon/github-clean-feed/)
+  + Opera - You can install the Chrome extension by installing [this Opera extension](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) first.
