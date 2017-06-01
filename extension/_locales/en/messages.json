@@ -2,7 +2,7 @@
 	"options_title":         {"message": "GitHub Clean Feed options"},
 	"action_group":          {"message": "Group"},
 	"action_hide":           {"message": "Hide"},
-	"action_off":           {"message": "Do nothing"},
+	"action_off":            {"message": "Do nothing"},
 	"starred_repos":         {"message": "Starred repositories"},
 	"forked_repos":          {"message": "Forked repositories"},
 	"new_repos":             {"message": "New and newly-public repositories"},
