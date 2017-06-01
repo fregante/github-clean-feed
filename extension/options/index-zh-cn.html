@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>GitHub Clean Feed options</title>
+<link rel="stylesheet" href="index.css">
+<form id="options-form">
+	<h3>星标项目</h3>
+	<div class="one-line">
+		<label>
+			<input name=starredRepos type=radio value=group>
+			分组
+		</label>
+		<label>
+			<input name=starredRepos type=radio value=hide>
+			隐藏
+		</label>
+		<label>
+			<input name=starredRepos type=radio value=off>
+			无操作
+		</label>
+	</div>
+
+	<h3>复刻项目</h3>
+	<div class="one-line">
+		<label>
+			<input name=forkedRepos type=radio value=group>
+			分组
+		</label>
+		<label>
+			<input name=forkedRepos type=radio value=hide>
+			隐藏
+		</label>
+		<label>
+			<input name=forkedRepos type=radio value=off>
+			无操作
+		</label>
+	</div>
+
+	<h3>新（公开）项目</h3>
+	<div class="one-line">
+		<label>
+			<input name=newRepos type=radio value=group>
+			分组
+		</label>
+		<label>
+			<input name=newRepos type=radio value=hide>
+			隐藏
+		</label>
+		<label>
+			<input name=newRepos type=radio value=off>
+			无操作
+		</label>
+	</div>
+
+	<h3>新评论</h3>
+	<div class="one-line">
+		<label>
+			<input name=comments type=radio value=group>
+			分组
+		</label>
+		<label>
+			<input name=comments type=radio value=hide>
+			隐藏
+		</label>
+		<label>
+			<input name=comments type=radio value=off>
+			无操作
+		</label>
+	</div>
+
+	<h3>新议题与合并请求</h3>
+	<div class="one-line">
+		<label>
+			<input name=newIssues type=radio value=group>
+			分组
+		</label>
+		<label>
+			<input name=newIssues type=radio value=hide>
+			隐藏
+		</label>
+		<label>
+			<input name=newIssues type=radio value=off>
+			无操作
+		</label>
+	</div>
+
+	<h3>展示</h3>
+	<label>
+		<input name=hideCollaborators type=checkbox>
+		隐藏 <em>新增的合作人</em> 事件
+	</label>
+	<label>
+		<input name=hideBranches type=checkbox>
+		隐藏 <em>新增</em> 与 <em>删除</em> 的分支
+	</label>
+	<label>
+		<input name=hideTags type=checkbox>
+		隐藏 <em>分布</em> 与 <em>版本</em>
+	</label>
+	<label>
+		<input name=hideCommits type=checkbox>
+		隐藏已推送的代码提交
+	</label>
+	<label>
+		<input name=hideClosedIssues type=checkbox>
+		隐藏已关闭的议题
+	</label>
+
+</form>
+<footer>
+    <a href="https://github.com/bfred-it/github-clean-feed">GitHub Clean Feed</a> – Options automatically saved
+</div>
+<script src="index.js"></script>
