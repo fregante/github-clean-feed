@@ -1,1 +1,22 @@
-
+{
+	"ext_title":             {"message": "GitHub Clean Feed"},
+	"ext_description":       {"message": "根据来源项目分组GitHub首页消息"},
+	"action_group":          {"message": "分组"},
+	"action_hide":           {"message": "隐藏"},
+	"action_off":            {"message": "无操作"},
+	"starred_repos":         {"message": "星标项目"},
+	"forked_repos":          {"message": "复刻项目"},
+	"new_repos":             {"message": "新（公开）项目"},
+	"new_comments":          {"message": "新评论"},
+	"new_issues_and_prs":    {"message": "新议题与合并请求"},
+	"display_options_title": {"message": "展示"},
+	"hide_collaborators":    {"message": "隐藏<em>新增合作人</em>事件"},
+	"hide_branches":         {"message": "隐藏<em>新增</em>与<em>删除</em>的分支"},
+	"hide_tags":             {"message": "隐藏 =<em>发布</em>与<em>版本标号</em>"},
+	"hide_commits":          {"message": "隐藏已推送的代码提交"},
+	"hide_closed_issues":    {"message": "隐藏已关闭的议题"},
+	"options_page_autosave": {"message": "自动保存选项"},
+	"done_by":               {"message": "作者"},
+	"done_towards":          {"message": "指向"},
+	"x_created":             {"message": "已创建"}
+}
