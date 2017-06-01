@@ -12,7 +12,7 @@
     "rollup": "^0.41.4",
     "rollup-config-webext": "^1.0.1",
     "rollup-watch": "^3.2.2",
-    "web-ext": "^1.8.1",
+    "webext": "1.9.1-with-submit.1",
     "xo": "^0.17.1"
   },
   "author": "Federico Brigante <npm@bfred.it> (https://twitter.com/bfred_it)",
@@ -23,8 +23,8 @@
     "watch:test": "onchange 'src/*.js' --initial -- xo --fix",
     "watch": "run-p --silent watch:*",
     "release": "run-p --silent --continue-on-error release:*",
-    "release:chrome": "cd extension; webstore upload --auto-publish",
-    "release:firefox": "cd extension; web-ext sign || echo",
+    "release:chrome": "cd extension && webstore upload --auto-publish",
+    "release:firefox": "cd extension && webext submit",
     "test": "xo",
     "update-version": "dot-json extension/manifest.json version $(date -u +%y.%-m.%-d.%-H%M)"
   },
