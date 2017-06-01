@@ -4,6 +4,7 @@
   "description": "Group news feed by repo",
   "version": "0.0.0",
   "author": "Federico Brigante",
+  "default_locale": "en",
   "permissions": [
     "storage"
   ],

@@ -1,0 +1,21 @@
+{
+	"options_title":         {"message": "GitHub Clean Feed options"},
+	"action_group":          {"message": "Group"},
+	"action_hide":           {"message": "Hide"},
+	"action_off":           {"message": "Do nothing"},
+	"starred_repos":         {"message": "Starred repositories"},
+	"forked_repos":          {"message": "Forked repositories"},
+	"new_repos":             {"message": "New and newly-public repositories"},
+	"new_comments":          {"message": "New comments"},
+	"new_issues_and_prs":    {"message": "New issues and PRs"},
+	"display_options_title": {"message": "Display"},
+	"hide_collaborators":    {"message": "Hide <em>collaborator added</em> events"},
+	"hide_branches":         {"message": "Hide <em>new</em> and <em>deleted</em> branches"},
+	"hide_tags":             {"message": "Hide <em>releases</em> and <em>tags</em>"},
+	"hide_commits":          {"message": "Hide pushed commits"},
+	"hide_closed_issues":    {"message": "Hide closed issues"},
+	"options_page_autosave": {"message": "Options automatically saved"},
+	"done_by":               {"message": "by"},
+	"done_towards":          {"message": "to"},
+	"x_created":             {"message": "created"}
+}

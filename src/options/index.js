@@ -9,3 +9,8 @@ new OptSync().syncForm(document.querySelector('#options-form'));
 // 	}
 // 	updateInputs(fields);
 // });
+
+// Localization
+for (const el of document.querySelectorAll('[data-i18n]')) {
+	el.innerHTML = chrome.i18n.getMessage(el.dataset.i18n);
+}

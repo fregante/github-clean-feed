@@ -6,6 +6,8 @@ import concatSets from '../libs/concatenate-set';
 import mapFromValues from '../libs/map-from-values';
 import {$, $$} from '../libs/select';
 
+const i18n = (...args) => chrome.i18n.getMessage(...args);
+
 const domifyEscape = (...args) => domify(eskape(...args));
 
 function groupByRepo(events) {
@@ -122,24 +124,24 @@ function apply(options, insertionPoint) {
 			const detailsEl = domifyEscape`<span class="ghcf-details">`;
 			switch (event.type) {
 				case 'fork':
-					detailsEl.textContent = ' to ';
+					detailsEl.textContent = ` ${i18n('done_towards')} `;
 					detailsEl.appendChild(event.relatedEl);
 					break;
 				case 'repo':
-					detailsEl.textContent = ' created';
+					detailsEl.textContent = ` ${i18n('x_created')}`;
 					break;
 				case 'pr':
 				case 'comment':
 					event.eventEl.textContent = event.eventEl.textContent.replace(/[^#]+/, '');
 					detailsEl.appendChild(document.createTextNode(' '));
 					detailsEl.appendChild(event.eventEl);
-					detailsEl.appendChild(document.createTextNode(' by '));
+					detailsEl.appendChild(document.createTextNode(` ${i18n('done_by')} `));
 					detailsEl.appendChild(event.actorEl);
 					detailsEl.appendChild(document.createTextNode(': '));
 					detailsEl.appendChild(event.relatedEl);
 					break;
 				default:
-					detailsEl.textContent = ' by ';
+					detailsEl.textContent = ` ${i18n('done_by')} `;
 					detailsEl.appendChild(event.actorEl);
 					break;
 			}
