@@ -2,9 +2,7 @@
 
 > Chrome/Firefox extension: Group news feed by repo. [Download for Chrome](https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/github-clean-feed/)
 
-![Screenshot](screenshot.png)
-
-![Options screenshot](screenshot-options.png)
+<img alt='Screenshot' src='screenshot.png' width='630' align='center'> <img alt='Options screenshot' src='screenshot-options-small.png' width='250' align='center'>
 
 ## Install
 
