@@ -1,0 +1,22 @@
+{
+  "ext_title":             {"message": "GitHub Clean Feed"},
+  "ext_description":       {"message": "Группировать подборку новостных событий GitHub по репозиторию."},
+  "action_group":          {"message": "Группировать"},
+  "action_hide":           {"message": "Скрыть"},
+  "action_off":            {"message": "Ничего не делать"},
+  "starred_repos":         {"message": "Избранные репозитории"},
+  "forked_repos":          {"message": "Форки репозиториев"},
+  "new_repos":             {"message": "Новые и вновь опубликованные репозитории"},
+  "new_comments":          {"message": "Новые комментарии"},
+  "new_issues_and_prs":    {"message": "Новые issues и PRs"},
+  "display_options_title": {"message": "Отобразить"},
+  "hide_collaborators":    {"message": "Не показывать уведомления о вступлении <em>новых участниках</em>"},
+  "hide_branches":         {"message": "Не показывать <em>новые</em> и <em>удаленные</em> ветки"},
+  "hide_tags":             {"message": "Не показывать <em>релизы</em> и <em>тэги</em>"},
+  "hide_commits":          {"message": "Не показывать внесенные коммиты"},
+  "hide_closed_issues":    {"message": "Не показывать закрытые issues"},
+  "options_page_autosave": {"message": "Настройки автоматически сохраненны"},
+  "done_by":               {"message": "by"},
+  "done_towards":          {"message": "to"},
+  "x_created":             {"message": "created"}
+}
