@@ -53,8 +53,8 @@ function groupByRepo(events) {
 		return repos;
 	}, new Map());
 }
-function apply(options, insertionPoint) {
-	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
+function apply(options) {
+	const holder = document.createDocumentFragment();
 	const byType = {
 		starredRepos: $$('.alert.watch_started'),
 		forkedRepos: $$('.alert.fork'),
@@ -164,6 +164,18 @@ function apply(options, insertionPoint) {
 		holder.appendChild(repoEventsEl);
 	});
 
+	return holder;
+}
+
+function wrapHolder(fragment) {
+	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
+
+	holder.appendChild(fragment);
+
+	return holder;
+}
+
+function insertHolder(holder, insertionPoint) {
 	if (holder.children.length > 0) {
 		if (!insertionPoint) {
 			const newsFeed = $('#dashboard .news');
@@ -174,11 +186,75 @@ function apply(options, insertionPoint) {
 	}
 }
 
+function readAllChunks(readableStream) {
+	const reader = readableStream.getReader();
+	const chunks = [];
+
+	return pump();
+
+	function pump() {
+		return reader.read().then(({value, done}) => {
+			if (done) {
+				return chunks;
+			}
+
+			chunks.push(value);
+			return pump();
+		});
+	}
+}
+
+function requestPage(cookies, number) {
+	return fetch(`https://github.com/dashboard/index/${number}?utf8=%E2%9C%93`, {
+		credentials: 'include',
+		Cookie: cookies,
+		headers: {
+			'X-Requested-With': 'XMLHttpRequest'
+		}
+	})
+		.then(data => {
+			const streem = data.body;
+
+			return readAllChunks(streem)
+				.then(data => data
+					.map(chunk => new TextDecoder('utf-8').decode(chunk))
+					.join('')
+				);
+		});
+}
+
+function preloadPages(options) {
+	const parsedCookies = JSON.parse(options.cookies);
+	const serializedCookies = Object.keys(parsedCookies)
+		.reduce((res, key) => `${res}${key}=${parsedCookies[key]}; `, '');
+
+	Promise.all(
+		Array(options.preloadPagesCount - 1)
+			.fill(null)
+			.map((t, n) => requestPage(serializedCookies, n + 1))
+	)
+		.then(data => {
+			const form = document.querySelector('.ajax-pagination-form');
+			const preloadedNews = document.querySelector('.ghcf-holder');
+
+			const fragment = document.createRange().createContextualFragment(
+				data.join('').replace(/<form[\s\S]*?<\/form>/g, '')
+			);
+
+			preloadedNews.appendChild(fragment);
+			preloadedNews.appendChild(apply(options));
+
+			form.action = form.action.replace(/\/\d$/, '/' + (options.preloadPagesCount));
+		});
+}
+
 function init(options) {
 	const newsFeed = $('#dashboard .news');
 
+	preloadPages(options);
+
 	const run = (observer, nodes) => {
-		apply(options, nodes); // add boxes before the first new element
+		insertHolder(wrapHolder(apply(options)), nodes); // add boxes before the first new element
 		setTimeout(() => { // Firefox goes in a loop without this timer
 			observer.observe(newsFeed, {childList: true});
 		}, 10);

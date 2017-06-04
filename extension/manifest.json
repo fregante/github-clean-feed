@@ -6,7 +6,9 @@
   "author": "Federico Brigante",
   "default_locale": "en",
   "permissions": [
-    "storage"
+    "storage",
+    "cookies",
+    "https://github.com/"
   ],
   "icons": {
     "128": "icon128.png"
