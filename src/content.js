@@ -14,7 +14,7 @@ function groupByRepo(events) {
 	return Array.from(events).reduce((repos, originalEvent) => {
 		const icon = originalEvent.querySelector('svg');
 		const actorEl = originalEvent.querySelector('.title a:first-child');
-		const eventEl = originalEvent.querySelector('.title a:nth-child(2)');
+		const eventEl = originalEvent.querySelector('.title a:last-child');
 		const repo = eventEl.textContent.replace(/[#@].*/, '');
 		const repoEl = domifyEscape`<a href="/${repo}"></a>`;
 		const classes = mapFromValues(originalEvent.classList);
@@ -151,6 +151,7 @@ function apply(options) {
 			el.querySelector('.title').appendChild(detailsEl);
 			repoEventsListEl.appendChild(el);
 		});
+
 		try {
 			if (events.size > 1) {
 				const icon = repoEventsListEl.querySelector('svg');
@@ -160,6 +161,7 @@ function apply(options) {
 		} catch (err) {
 			console.error(err);
 		}
+
 		repoEventsEl.appendChild(repoEventsListEl);
 		holder.appendChild(repoEventsEl);
 	});
