@@ -35,5 +35,5 @@ function serializeCookies(data) {
 }
 
 chrome.cookies.onChanged.addListener(saveCookies);
-setTimeout(saveCookies, 0);
+setTimeout(saveCookies, 10);
 

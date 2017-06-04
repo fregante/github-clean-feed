@@ -227,27 +227,30 @@ function requestPage(cookies, number) {
 
 function preloadPages(options) {
 	const parsedCookies = JSON.parse(options.cookies);
-	const serializedCookies = Object.keys(parsedCookies)
-		.reduce((res, key) => `${res}${key}=${parsedCookies[key]}; `, '');
 
-	Promise.all(
-		Array(options.preloadPagesCount - 1)
-			.fill(null)
-			.map((t, n) => requestPage(serializedCookies, n + 1))
-	)
-		.then(data => {
-			const form = document.querySelector('.ajax-pagination-form');
-			const preloadedNews = document.querySelector('.ghcf-holder');
+	if (parsedCookies) {
+		const serializedCookies = Object.keys(parsedCookies)
+			.reduce((res, key) => `${res}${key}=${parsedCookies[key]}; `, '');
 
-			const fragment = document.createRange().createContextualFragment(
-				data.join('').replace(/<form[\s\S]*?<\/form>/g, '')
-			);
+		Promise.all(
+			Array(options.preloadPagesCount - 1)
+				.fill(null)
+				.map((t, n) => requestPage(serializedCookies, n + 1))
+		)
+			.then(data => {
+				const form = document.querySelector('.ajax-pagination-form');
+				const preloadedNews = document.querySelector('.ghcf-holder');
 
-			preloadedNews.appendChild(fragment);
-			preloadedNews.appendChild(apply(options));
+				const fragment = document.createRange().createContextualFragment(
+					data.join('').replace(/<form[\s\S]*?<\/form>/g, '')
+				);
 
-			form.action = form.action.replace(/\/\d$/, '/' + (options.preloadPagesCount));
-		});
+				preloadedNews.appendChild(fragment);
+				preloadedNews.appendChild(apply(options));
+
+				form.action = form.action.replace(/\/\d$/, '/' + (options.preloadPagesCount));
+			});
+	}
 }
 
 function init(options) {
