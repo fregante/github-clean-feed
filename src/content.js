@@ -188,69 +188,35 @@ function insertHolder(holder, insertionPoint) {
 	}
 }
 
-function readAllChunks(readableStream) {
-	const reader = readableStream.getReader();
-	const chunks = [];
-
-	return pump();
-
-	function pump() {
-		return reader.read().then(({value, done}) => {
-			if (done) {
-				return chunks;
-			}
-
-			chunks.push(value);
-			return pump();
-		});
-	}
-}
-
-function requestPage(cookies, number) {
+function requestPage(number) {
 	return fetch(`https://github.com/dashboard/index/${number}?utf8=%E2%9C%93`, {
 		credentials: 'include',
-		Cookie: cookies,
 		headers: {
 			'X-Requested-With': 'XMLHttpRequest'
 		}
 	})
-		.then(data => {
-			const streem = data.body;
-
-			return readAllChunks(streem)
-				.then(data => data
-					.map(chunk => new TextDecoder('utf-8').decode(chunk))
-					.join('')
-				);
-		});
+		.then(data => data.text());
 }
 
 function preloadPages(options) {
-	const parsedCookies = JSON.parse(options.cookies);
+	Promise.all(
+		Array(options.preloadPagesCount - 1)
+			.fill(null)
+			.map((t, n) => requestPage(n + 1))
+	)
+		.then(data => {
+			const form = document.querySelector('.ajax-pagination-form');
+			const preloadedNews = document.querySelector('.ghcf-holder');
 
-	if (parsedCookies) {
-		const serializedCookies = Object.keys(parsedCookies)
-			.reduce((res, key) => `${res}${key}=${parsedCookies[key]}; `, '');
+			const fragment = document.createRange().createContextualFragment(
+				data.join('').replace(/<form[\s\S]*?<\/form>/g, '')
+			);
 
-		Promise.all(
-			Array(options.preloadPagesCount - 1)
-				.fill(null)
-				.map((t, n) => requestPage(serializedCookies, n + 1))
-		)
-			.then(data => {
-				const form = document.querySelector('.ajax-pagination-form');
-				const preloadedNews = document.querySelector('.ghcf-holder');
+			preloadedNews.appendChild(fragment);
+			preloadedNews.appendChild(apply(options));
 
-				const fragment = document.createRange().createContextualFragment(
-					data.join('').replace(/<form[\s\S]*?<\/form>/g, '')
-				);
-
-				preloadedNews.appendChild(fragment);
-				preloadedNews.appendChild(apply(options));
-
-				form.action = form.action.replace(/\/\d$/, '/' + (options.preloadPagesCount));
-			});
-	}
+			form.action = form.action.replace(/\/\d$/, '/' + (options.preloadPagesCount));
+		});
 }
 
 function init(options) {

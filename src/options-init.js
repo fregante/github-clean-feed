@@ -14,26 +14,9 @@ opts.define({
 		hideTags: true,
 		hideCommits: true,
 		hideClosedIssues: true,
-		cookies: null,
 		preloadPagesCount: 1
 	},
 	migrations: [
 		OptSync.migrations.removeUnused
 	],
 });
-
-function saveCookies() {
-	chrome.cookies.getAll(
-		{url: 'https://github.com'},
-		data => opts.set({cookies: serializeCookies(data)})
-	);
-}
-
-function serializeCookies(data) {
-	return JSON.stringify(data
-		.reduce((res, {name, value}) => Object.assign(res, {[name]: value}), {}));
-}
-
-chrome.cookies.onChanged.addListener(saveCookies);
-setTimeout(saveCookies, 10);
-
