@@ -53,6 +53,7 @@ function groupByRepo(events) {
 		return repos;
 	}, new Map());
 }
+
 function apply(options) {
 	const holder = document.createDocumentFragment();
 	const byType = {
@@ -169,8 +170,8 @@ function apply(options) {
 	return holder;
 }
 
-function wrapHolder(fragment) {
-	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
+function wrapHolder(fragment, index) {
+	const holder = domifyEscape`<div class="ghcf-holder" data-index="${index}"><i>`;
 
 	holder.appendChild(fragment);
 
@@ -184,6 +185,7 @@ function insertHolder(holder, insertionPoint) {
 			const accountSwitcher = $('.account-switcher');
 			insertionPoint = newsFeed.children[accountSwitcher ? 1 : 0];
 		}
+
 		insertionPoint.parentNode.insertBefore(holder, insertionPoint);
 	}
 }
@@ -195,49 +197,69 @@ function requestPage(number) {
 			'X-Requested-With': 'XMLHttpRequest'
 		}
 	})
-		.then(data => data.text());
+		.then(data => data.text().then(domify));
 }
 
 function preloadPages(options) {
-	Promise.all(
+	const news = [];
+	const preloadedNews = document.querySelector('.news');
+	const form = document.querySelector('.ajax-pagination-form');
+
+	form.action = form.action.replace(/\/\d$/, '/' + (options.preloadPagesCount));
+
+	return Promise.all(
 		Array(options.preloadPagesCount - 1)
 			.fill(null)
-			.map((t, n) => requestPage(n + 1))
-	)
-		.then(data => {
-			const form = document.querySelector('.ajax-pagination-form');
-			const preloadedNews = document.querySelector('.ghcf-holder');
+			.map((t, number) => requestPage(number + 1))
+			.map((promise, promiseIndex) =>
+				promise.then(data => {
+					const dataForm = data.querySelector('form');
 
-			const fragment = document.createRange().createContextualFragment(
-				data.join('').replace(/<form[\s\S]*?<\/form>/g, '')
-			);
+					if (dataForm) {
+						dataForm.remove();
+					}
 
-			preloadedNews.appendChild(fragment);
-			preloadedNews.appendChild(apply(options));
+					const index = promiseIndex + 1;
+					let insertedIndex = news.findIndex((item, i, arr) => (
+						(!arr[i - 1] || arr[i - 1].index < index) && item.index > index
+					));
 
-			form.action = form.action.replace(/\/\d$/, '/' + (options.preloadPagesCount));
-		});
+					if (insertedIndex === -1) {
+						insertedIndex = news.length;
+					}
+
+					const insertedPoint = insertedIndex <= news.length - 1 ? news[insertedIndex].holder : form;
+					const holder = wrapHolder(data, index);
+					preloadedNews.insertBefore(holder, insertedPoint);
+
+					const parsedPage = apply(options, index);
+					insertHolder(parsedPage, holder.children[1]);
+
+					news.splice(insertedIndex, 0, {holder, index});
+				})
+			)
+	);
 }
 
 function init(options) {
 	const newsFeed = $('#dashboard .news');
 
-	preloadPages(options);
+	preloadPages(options).then(() => {
+		const run = (observer, nodes) => {
+			insertHolder(wrapHolder(apply(options), 0), nodes); // add boxes before the first new element
+			setTimeout(() => { // Firefox goes in a loop without this timer
+				observer.observe(newsFeed, {childList: true});
+			}, 10);
+		};
 
-	const run = (observer, nodes) => {
-		insertHolder(wrapHolder(apply(options)), nodes); // add boxes before the first new element
-		setTimeout(() => { // Firefox goes in a loop without this timer
-			observer.observe(newsFeed, {childList: true});
-		}, 10);
-	};
+		// track future updates
+		const observer = new MutationObserver(([{addedNodes}], observer) => {
+			observer.disconnect(); // disable to prevent loops
+			run(observer, addedNodes[0]);
+		});
 
-	// track future updates
-	const observer = new MutationObserver(([{addedNodes}], observer) => {
-		observer.disconnect(); // disable to prevent loops
-		run(observer, addedNodes[0]);
+		run(observer);
 	});
-
-	run(observer);
 }
 
 const domReady = new Promise(resolve => {
