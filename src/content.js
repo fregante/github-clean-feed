@@ -202,8 +202,8 @@ function requestPage(number) {
 
 function preloadPages(options) {
 	const news = [];
-	const preloadedNews = document.querySelector('.news');
-	const form = document.querySelector('.ajax-pagination-form');
+	const preloadedNews = $('#dashboard .news');
+	const form = $('.ajax-pagination-form');
 
 	form.action = form.action.replace(/\/\d$/, '/' + (options.preloadPagesCount));
 
@@ -264,7 +264,7 @@ function init(options) {
 
 const domReady = new Promise(resolve => {
 	(function check() {
-		if (document.querySelector('.ajax-pagination-form')) {
+		if ($('.ajax-pagination-form')) {
 			resolve();
 		} else {
 			requestAnimationFrame(check);
