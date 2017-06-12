@@ -54,6 +54,11 @@ function groupByRepo(events) {
 	}, new Map());
 }
 function apply(options, insertionPoint) {
+	// Save insertion point
+	const placeholder = document.createRange();
+	placeholder.setStartBefore(insertionPoint);
+	placeholder.setEndBefore(insertionPoint);
+
 	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
 	const byType = {
 		starredRepos: $$('.alert.watch_started'),
@@ -166,15 +171,7 @@ function apply(options, insertionPoint) {
 		holder.appendChild(repoEventsEl);
 	});
 
-	if (holder.children.length > 0) {
-		if (!insertionPoint) {
-			const newsFeed = $('#dashboard .news');
-			const accountSwitcher = $('.account-switcher');
-			insertionPoint = newsFeed.children[accountSwitcher ? 1 : 0];
-		}
-
-		insertionPoint.parentNode.insertBefore(holder, insertionPoint);
-	}
+	placeholder.insertNode(holder);
 }
 
 function requestPage(number) {
@@ -184,48 +181,23 @@ function requestPage(number) {
 			'X-Requested-With': 'XMLHttpRequest'
 		}
 	})
-		.then(data => data.text().then(domify));
+	.then(data => data.text())
+	.then(domify);
 }
 
-function preloadPages(options) {
-	const news = [];
-	const preloadedNews = $('#dashboard .news');
-	const form = $('.ajax-pagination-form');
+async function preloadPages(count) {
+	const pages = [];
 
-	form.action = form.action.replace(/\/\d$/, '/' + (options.preloadPagesCount));
+	// Prefetch all pages in parallel
+	for (let i = 0; i < count; i++) {
+		pages.push(requestPage(i + 2));
+	}
 
-	return Promise.all(
-		Array(options.preloadPagesCount - 1)
-			.fill(null)
-			.map((t, number) => requestPage(number + 1))
-			.map((promise, promiseIndex) =>
-				promise.then(data => {
-					const dataForm = data.querySelector('form');
-
-					if (dataForm) {
-						dataForm.remove();
-					}
-
-					const index = promiseIndex + 1;
-					let insertedIndex = news.findIndex((item, i, arr) => (
-						(!arr[i - 1] || arr[i - 1].index < index) && item.index > index
-					));
-
-					if (insertedIndex === -1) {
-						insertedIndex = news.length;
-					}
-
-					const insertedPoint = insertedIndex <= news.length - 1 ? news[insertedIndex].holder : form;
-					const holder = wrapHolder(data, index);
-					preloadedNews.insertBefore(holder, insertedPoint);
-
-					const parsedPage = apply(options, index);
-					insertHolder(parsedPage, holder.children[1]);
-
-					news.splice(insertedIndex, 0, {holder, index});
-				})
-			)
-	);
+	// Append pages in series
+	// uses the same method used by GitHub
+	for (const page of pages) {
+		$('.ajax-pagination-form').replaceWith(await page);
+	}
 }
 
 function init(options) {
@@ -244,7 +216,8 @@ function init(options) {
 		run(observer, addedNodes[0]);
 	});
 
-	run(observer);
+	run(observer, $('.account-switcher + *') || $('.news.column :first-child'));
+	preloadPages(options.preloadPagesCount);
 }
 
 const domReady = new Promise(resolve => {
