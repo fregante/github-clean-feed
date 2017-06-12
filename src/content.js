@@ -54,6 +54,11 @@ function groupByRepo(events) {
 	}, new Map());
 }
 function apply(options, insertionPoint) {
+	// Save insertion point
+	const placeholder = document.createRange();
+	placeholder.setStartBefore(insertionPoint);
+	placeholder.setEndBefore(insertionPoint);
+
 	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
 	const byType = {
 		starredRepos: $$('.alert.watch_started'),
@@ -151,6 +156,7 @@ function apply(options, insertionPoint) {
 			el.querySelector('.title').appendChild(detailsEl);
 			repoEventsListEl.appendChild(el);
 		});
+
 		try {
 			if (events.size > 1) {
 				const icon = repoEventsListEl.querySelector('svg');
@@ -160,17 +166,37 @@ function apply(options, insertionPoint) {
 		} catch (err) {
 			console.error(err);
 		}
+
 		repoEventsEl.appendChild(repoEventsListEl);
 		holder.appendChild(repoEventsEl);
 	});
 
-	if (holder.children.length > 0) {
-		if (!insertionPoint) {
-			const newsFeed = $('#dashboard .news');
-			const accountSwitcher = $('.account-switcher');
-			insertionPoint = newsFeed.children[accountSwitcher ? 1 : 0];
+	placeholder.insertNode(holder);
+}
+
+function requestPage(number) {
+	return fetch(`https://github.com/dashboard/index/${number}?utf8=%E2%9C%93`, {
+		credentials: 'include',
+		headers: {
+			'X-Requested-With': 'XMLHttpRequest'
 		}
-		insertionPoint.parentNode.insertBefore(holder, insertionPoint);
+	})
+	.then(data => data.text())
+	.then(domify);
+}
+
+async function preloadPages(count) {
+	const pages = [];
+
+	// Prefetch all pages in parallel
+	for (let i = 0; i < count; i++) {
+		pages.push(requestPage(i + 2));
+	}
+
+	// Append pages in series
+	// uses the same method used by GitHub
+	for (const page of pages) {
+		$('.ajax-pagination-form').replaceWith(await page);
 	}
 }
 
@@ -190,12 +216,13 @@ function init(options) {
 		run(observer, addedNodes[0]);
 	});
 
-	run(observer);
+	run(observer, $('.account-switcher + *') || $('.news.column :first-child'));
+	preloadPages(options.preloadPagesCount);
 }
 
 const domReady = new Promise(resolve => {
 	(function check() {
-		if (document.querySelector('.ajax-pagination-form')) {
+		if ($('.ajax-pagination-form')) {
 			resolve();
 		} else {
 			requestAnimationFrame(check);
