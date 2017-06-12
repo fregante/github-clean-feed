@@ -1,8 +1,6 @@
 import OptSync from 'webext-options-sync';
 
-const opts = new OptSync();
-
-opts.define({
+new OptSync().define({
 	defaults: {
 		starredRepos: 'group',
 		forkedRepos: 'group',

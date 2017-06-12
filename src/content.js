@@ -14,7 +14,7 @@ function groupByRepo(events) {
 	return Array.from(events).reduce((repos, originalEvent) => {
 		const icon = originalEvent.querySelector('svg');
 		const actorEl = originalEvent.querySelector('.title a:first-child');
-		const eventEl = originalEvent.querySelector('.title a:last-child');
+		const eventEl = originalEvent.querySelector('.title a:nth-child(2)');
 		const repo = eventEl.textContent.replace(/[#@].*/, '');
 		const repoEl = domifyEscape`<a href="/${repo}"></a>`;
 		const classes = mapFromValues(originalEvent.classList);
@@ -53,9 +53,8 @@ function groupByRepo(events) {
 		return repos;
 	}, new Map());
 }
-
-function apply(options) {
-	const holder = document.createDocumentFragment();
+function apply(options, insertionPoint) {
+	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
 	const byType = {
 		starredRepos: $$('.alert.watch_started'),
 		forkedRepos: $$('.alert.fork'),
@@ -167,18 +166,6 @@ function apply(options) {
 		holder.appendChild(repoEventsEl);
 	});
 
-	return holder;
-}
-
-function wrapHolder(fragment, index) {
-	const holder = domifyEscape`<div class="ghcf-holder" data-index="${index}"><i>`;
-
-	holder.appendChild(fragment);
-
-	return holder;
-}
-
-function insertHolder(holder, insertionPoint) {
 	if (holder.children.length > 0) {
 		if (!insertionPoint) {
 			const newsFeed = $('#dashboard .news');
@@ -244,22 +231,20 @@ function preloadPages(options) {
 function init(options) {
 	const newsFeed = $('#dashboard .news');
 
-	preloadPages(options).then(() => {
-		const run = (observer, nodes) => {
-			insertHolder(wrapHolder(apply(options), 0), nodes); // add boxes before the first new element
-			setTimeout(() => { // Firefox goes in a loop without this timer
-				observer.observe(newsFeed, {childList: true});
-			}, 10);
-		};
+	const run = (observer, nodes) => {
+		apply(options, nodes); // add boxes before the first new element
+		setTimeout(() => { // Firefox goes in a loop without this timer
+			observer.observe(newsFeed, {childList: true});
+		}, 10);
+	};
 
-		// track future updates
-		const observer = new MutationObserver(([{addedNodes}], observer) => {
-			observer.disconnect(); // disable to prevent loops
-			run(observer, addedNodes[0]);
-		});
-
-		run(observer);
+	// track future updates
+	const observer = new MutationObserver(([{addedNodes}], observer) => {
+		observer.disconnect(); // disable to prevent loops
+		run(observer, addedNodes[0]);
 	});
+
+	run(observer);
 }
 
 const domReady = new Promise(resolve => {
