@@ -201,23 +201,25 @@ async function preloadPages(count) {
 }
 
 function init(options) {
-	const newsFeed = $('#dashboard .news');
-
-	const run = (observer, nodes) => {
-		apply(options, nodes); // add boxes before the first new element
-		setTimeout(() => { // Firefox goes in a loop without this timer
-			observer.observe(newsFeed, {childList: true});
-		}, 10);
-	};
+	apply(options, $('.account-switcher + *') || $('.news.column :first-child'));
+	preloadPages(options.preloadPagesCount);
 
 	// track future updates
-	const observer = new MutationObserver(([{addedNodes}], observer) => {
-		observer.disconnect(); // disable to prevent loops
-		run(observer, addedNodes[0]);
-	});
+	const updates = new MutationObserver(([{addedNodes}]) => {
+		// Skip non-adding mutations
+		if (addedNodes.length === 0) {
+			return;
+		}
 
-	run(observer, $('.account-switcher + *') || $('.news.column :first-child'));
-	preloadPages(options.preloadPagesCount);
+		// Skip ghcf-caused mutations
+		if ([...addedNodes].some(el => el.matches && el.matches('.ghcf-holder'))) {
+			return;
+		}
+
+		// Add boxes before the first new element
+		apply(options, addedNodes[0]);
+	});
+	updates.observe($('#dashboard .news'), {childList: true});
 }
 
 const domReady = new Promise(resolve => {
