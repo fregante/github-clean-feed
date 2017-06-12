@@ -1,5 +1,6 @@
 import OptSync from 'webext-options-sync';
 import eskape from 'eskape';
+import elementReady from 'element-ready';
 import domify from '../libs/html-to-dom';
 import * as icons from '../libs/github-icons';
 import concatSets from '../libs/concatenate-set';
@@ -224,14 +225,7 @@ async function init(options) {
 	updates.observe($('#dashboard .news'), {childList: true});
 }
 
-const domReady = new Promise(resolve => {
-	(function check() {
-		if ($('.ajax-pagination-form')) {
-			resolve();
-		} else {
-			requestAnimationFrame(check);
-		}
-	})();
-});
 const options = new OptSync().getAll();
-domReady.then(() => options).then(init);
+elementReady('.ajax-pagination-form')
+.then(() => options)
+.then(init);
