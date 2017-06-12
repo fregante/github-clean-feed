@@ -185,24 +185,25 @@ function requestPage(number) {
 	.then(domify);
 }
 
-async function preloadPages(count) {
+async function init(options) {
+	apply(options, $('.account-switcher + *') || $('.news.column :first-child'));
+
+	// Preload pages
 	const pages = [];
 
 	// Prefetch all pages in parallel
-	for (let i = 0; i < count; i++) {
+	for (let i = 0; i < options.preloadPagesCount; i++) {
 		pages.push(requestPage(i + 2));
 	}
 
 	// Append pages in series
 	// uses the same method used by GitHub
 	for (const page of pages) {
-		$('.ajax-pagination-form').replaceWith(await page);
+		const updates = await page;
+		const firstElement = updates.firstElementChild;
+		$('.ajax-pagination-form').replaceWith(updates);
+		apply(options, firstElement);
 	}
-}
-
-function init(options) {
-	apply(options, $('.account-switcher + *') || $('.news.column :first-child'));
-	preloadPages(options.preloadPagesCount);
 
 	// track future updates
 	const updates = new MutationObserver(([{addedNodes}]) => {
