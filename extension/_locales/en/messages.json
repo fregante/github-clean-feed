@@ -19,5 +19,5 @@
 	"done_by":               {"message": "by"},
 	"done_towards":          {"message": "to"},
 	"x_created":             {"message": "created"},
-	"preload_pages_count":   {"message": "Preloaded pages"}
+	"preload_pages_count":   {"message": "Preload additional pages"}
 }
