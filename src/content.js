@@ -199,13 +199,14 @@ async function init(options) {
 	// Append pages in series
 	// uses the same method used by GitHub
 	for (const page of pages) {
+		// eslint-disable-next-line no-await-in-loop
 		const updates = await page;
 		const firstElement = updates.firstElementChild;
 		$('.ajax-pagination-form').replaceWith(updates);
 		apply(options, firstElement);
 	}
 
-	// track future updates
+	// Track future updates
 	const updates = new MutationObserver(([{addedNodes}]) => {
 		// Skip non-adding mutations
 		if (addedNodes.length === 0) {

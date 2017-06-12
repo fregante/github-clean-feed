@@ -5,15 +5,15 @@
   "description": "",
   "devDependencies": {
     "chrome-webstore-upload-cli": "^1.0.0",
-    "cli-foreachfile": "^1.0.4",
+    "cli-foreachfile": "^1.0.5",
     "dot-json": "^1.0.3",
-    "npm-run-all": "^4.0.1",
+    "npm-run-all": "^4.0.2",
     "onchange": "^3.2.0",
-    "rollup": "^0.41.4",
+    "rollup": "^0.42.0",
     "rollup-config-webext": "^1.0.1",
-    "rollup-watch": "^3.2.2",
+    "rollup-watch": "^4.0.0",
     "webext": "1.9.1-with-submit.1",
-    "xo": "^0.17.1"
+    "xo": "^0.18.2"
   },
   "author": "Federico Brigante <npm@bfred.it> (https://twitter.com/bfred_it)",
   "license": "MIT",
@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "eskape": "^1.2.0",
-    "webext-inject-on-install": "^1.0.1",
+    "webext-inject-on-install": "^1.0.2",
     "webext-options-sync": "^0.9.0"
   }
 }
