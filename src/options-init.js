@@ -12,7 +12,7 @@ new OptSync().define({
 		hideTags: true,
 		hideCommits: true,
 		hideClosedIssues: true,
-		preloadPagesCount: 1
+		preloadPagesCount: 0
 	},
 	migrations: [
 		OptSync.migrations.removeUnused
