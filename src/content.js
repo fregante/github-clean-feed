@@ -194,7 +194,7 @@ async function init() {
 		elementReady('.ajax-pagination-form')
 	]);
 
-	apply($('.account-switcher + *') || $('.news.column :first-child'));
+	apply($('.account-switcher + *') || $('.news.column > :first-child'));
 
 	// Preload pages
 	const pages = [];
