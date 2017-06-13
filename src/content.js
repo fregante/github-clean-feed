@@ -11,6 +11,8 @@ const i18n = (...args) => chrome.i18n.getMessage(...args);
 
 const domifyEscape = (...args) => domify(eskape(...args));
 
+let options;
+
 function groupByRepo(events) {
 	return Array.from(events).reduce((repos, originalEvent) => {
 		const icon = originalEvent.querySelector('svg');
@@ -54,7 +56,7 @@ function groupByRepo(events) {
 		return repos;
 	}, new Map());
 }
-function apply(options, insertionPoint) {
+function apply(insertionPoint) {
 	// Save insertion point
 	const placeholder = document.createRange();
 	placeholder.setStartBefore(insertionPoint);
@@ -186,8 +188,13 @@ function requestPage(number) {
 	.then(domify);
 }
 
-async function init(options) {
-	apply(options, $('.account-switcher + *') || $('.news.column :first-child'));
+async function init() {
+	[options] = await Promise.all([
+		new OptSync().getAll(),
+		elementReady('.ajax-pagination-form')
+	]);
+
+	apply($('.account-switcher + *') || $('.news.column :first-child'));
 
 	// Preload pages
 	const pages = [];
@@ -204,7 +211,7 @@ async function init(options) {
 		const updates = await page;
 		const firstElement = updates.firstElementChild;
 		$('.ajax-pagination-form').replaceWith(updates);
-		apply(options, firstElement);
+		apply(firstElement);
 	}
 
 	// Track future updates
@@ -220,12 +227,9 @@ async function init(options) {
 		}
 
 		// Add boxes before the first new element
-		apply(options, addedNodes[0]);
+		apply(addedNodes[0]);
 	});
 	updates.observe($('#dashboard .news'), {childList: true});
 }
 
-const options = new OptSync().getAll();
-elementReady('.ajax-pagination-form')
-.then(() => options)
-.then(init);
+init();
