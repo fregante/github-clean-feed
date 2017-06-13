@@ -9,7 +9,7 @@
 
 > Group news feed events by repo. [Download for Chrome](https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/github-clean-feed/)
 
-<img alt='Screenshot' src='screenshot.png' width='630' align='center'> <img alt='Options screenshot' src='screenshot-options-small.png' width='250' align='center'>
+<img alt='Screenshot' src='screenshot.png' width='610' align='center'> <img alt='Options screenshot' src='screenshot-options-small.png' width='270' align='center'>
 
 ## Install
 
