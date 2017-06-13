@@ -7,14 +7,36 @@ new OptSync().define({
 		newRepos: 'group',
 		comments: 'group',
 		newIssues: 'group',
-		hideCollaborators: true,
-		hideBranches: true,
-		hideTags: true,
-		hideCommits: true,
-		hideClosedIssues: true,
+		collaborators: 'hide',
+		branches: 'hide',
+		tags: 'hide',
+		commits: 'hide',
+		closedIssues: 'hide',
 		preloadPagesCount: 0
 	},
 	migrations: [
+		savedOptions => {
+			if (savedOptions.hideCollaborators) {
+				savedOptions.collaborators = 'hide';
+			}
+			if (savedOptions.hideBranches) {
+				savedOptions.branches = 'hide';
+			}
+			if (savedOptions.hideTags) {
+				savedOptions.tags = 'hide';
+			}
+			if (savedOptions.hideCommits) {
+				savedOptions.commits = 'hide';
+			}
+			if (savedOptions.hideClosedIssues) {
+				savedOptions.closedIssues = 'hide';
+			}
+			delete savedOptions.hideCollaborators;
+			delete savedOptions.hideBranches;
+			delete savedOptions.hideTags;
+			delete savedOptions.hideCommits;
+			delete savedOptions.hideClosedIssues;
+		},
 		OptSync.migrations.removeUnused
 	],
 });

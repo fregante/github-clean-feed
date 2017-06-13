@@ -1,33 +1,74 @@
 html {
     font-family: sans-serif;
 }
-label, button, footer {
-    display: block;
-    margin: 1em 0;
-}
-input {
-    font: inherit;
-}
 h3:not(:first-child) {
     margin-top: 2em;
 }
 footer {
     font-style: italic;
     font-size: 0.8em;
-    color: gray
+    color: gray;
+    margin: 1em 0;
 }
 footer a {
     color: inherit;
 }
-.one-line label {
-    display: inline-block;
+
+/**
+ * TABLE
+ */
+.core-table {
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
 }
-.one-line label:not(:last-child) {
-    margin-right: 0.5em;
+/* thead is used as a placeholder for :hover->bold only*/
+.core-table thead th {
+    padding-top: 0;
+    padding-bottom: 0;
 }
-h3 + .one-line label{
-    margin-top: 0;
+.core-table thead span {
+    display: block;
+    overflow: hidden;
+    height: 0;
 }
-.one-line + h3 {
-    margin-top: 1em;
+/* tbody style */
+.core-table tr > * {
+    padding: 0.4em 0.4em;
+}
+.core-table tr:hover > * {
+    background-color: rgba(3, 102, 214, 0.05);
+}
+/* option label */
+.core-table tr > :nth-child(1) {
+    text-align: left;
+    border-right: 1px solid #eee;
+    padding-right: 0.8em;
+    padding-left: 0;
+    font-weight: normal;
+}
+
+.core-table tr > :nth-child(2) {
+    padding-left: 0.8em;
+}
+.core-table tr > :nth-child(4) {
+    padding-right: 0;
+}
+.core-table span {
+    display: block;
+    color: #999;
+    cursor: pointer;
+}
+.core-table span:hover {
+    font-weight: bold;
+}
+.core-table input {
+    display: none;
+}
+.core-table input:checked + span {
+    color: #0366d6;
+    font-weight: bold;
+}
+.core-table input:disabled + span {
+    visibility: hidden;
 }

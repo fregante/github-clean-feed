@@ -70,11 +70,11 @@ function apply(insertionPoint) {
 		newRepos: $$('.alert.create', '.octicon-repo').concat($$('.alert.public')),
 		comments: $$('.alert.commit_comment, .alert.issues_comment'),
 		newIssues: $$('.alert.issues_opened'),
-		hideBranches: $$('.alert.create', '.octicon-git-branch').concat($$('.alert.delete')),
-		hideTags: $$('.alert.create', '.octicon-tag').concat($$('.alert.release')),
-		hideCommits: $$('.alert.push'),
-		hideCollaborators: $$('.alert.member_add'),
-		hideClosedIssues: $$('.alert.issues_closed')
+		closedIssues: $$('.alert.issues_closed'),
+		branches: $$('.alert.create', '.octicon-git-branch').concat($$('.alert.delete')),
+		tags: $$('.alert.create', '.octicon-tag').concat($$('.alert.release')),
+		commits: $$('.alert.push'),
+		collaborators: $$('.alert.member_add'),
 	};
 
 	const originalEvents = new Set();
@@ -82,7 +82,7 @@ function apply(insertionPoint) {
 	for (const eventType of Object.keys(byType)) {
 		if (options[eventType] === 'group') {
 			concatSets(originalEvents, byType[eventType]);
-		} else if (options[eventType] === 'hide' || options[eventType] === true) {
+		} else if (options[eventType] === 'hide') {
 			byType[eventType].forEach(el => el.remove());
 		}
 	}
