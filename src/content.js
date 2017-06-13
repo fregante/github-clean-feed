@@ -56,6 +56,7 @@ function groupByRepo(events) {
 		return repos;
 	}, new Map());
 }
+
 function apply(insertionPoint) {
 	// Save insertion point
 	const placeholder = document.createRange();
@@ -78,15 +79,15 @@ function apply(insertionPoint) {
 
 	const originalEvents = new Set();
 
-	Object.keys(byType).forEach(type => {
-		if (options[type] === 'group') {
-			concatSets(originalEvents, byType[type]);
-		} else if (options[type] === 'hide' || options[type] === true) {
-			byType[type].forEach(el => el.remove());
+	for (const eventType of Object.keys(byType)) {
+		if (options[eventType] === 'group') {
+			concatSets(originalEvents, byType[eventType]);
+		} else if (options[eventType] === 'hide' || options[eventType] === true) {
+			byType[eventType].forEach(el => el.remove());
 		}
-	});
+	}
 
-	groupByRepo(originalEvents).forEach((events, repoUrl) => {
+	for (const [repoUrl, events] of groupByRepo(originalEvents)) {
 		const [owner, repo] = repoUrl.split('/');
 		const repoEventsEl = domifyEscape`<div class="alert">`;
 		const repoEventsListEl = domifyEscape`<div class="body">`;
@@ -98,7 +99,7 @@ function apply(insertionPoint) {
 			repoEventsEl.classList.add(`ghcf-actor-user-${[...events][0].actorEl.textContent}`);
 		}
 
-		Array.from(events).forEach((event, i) => {
+		for (const [i, event] of [...events].entries()) {
 			let el;
 			if (i === 0) {
 				el = domify(`
@@ -158,7 +159,7 @@ function apply(insertionPoint) {
 			detailsEl.appendChild(event.timeEl);
 			el.querySelector('.title').appendChild(detailsEl);
 			repoEventsListEl.appendChild(el);
-		});
+		}
 
 		try {
 			if (events.size > 1) {
@@ -172,7 +173,7 @@ function apply(insertionPoint) {
 
 		repoEventsEl.appendChild(repoEventsListEl);
 		holder.appendChild(repoEventsEl);
-	});
+	}
 
 	placeholder.insertNode(holder);
 }
@@ -196,7 +197,6 @@ async function init() {
 
 	apply($('.account-switcher + *') || $('.news.column > :first-child'));
 
-	// Preload pages
 	const pages = [];
 
 	// Prefetch all pages in parallel
