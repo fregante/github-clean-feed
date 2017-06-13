@@ -60,7 +60,7 @@ function apply(options, insertionPoint) {
 	placeholder.setStartBefore(insertionPoint);
 	placeholder.setEndBefore(insertionPoint);
 
-	const holder = domify`<div class="ghcf-holder"><i>`;
+	const holder = domifyEscape`<div class="ghcf-holder"><i>`;
 	const byType = {
 		starredRepos: $$('.alert.watch_started'),
 		forkedRepos: $$('.alert.fork'),
@@ -86,8 +86,8 @@ function apply(options, insertionPoint) {
 
 	groupByRepo(originalEvents).forEach((events, repoUrl) => {
 		const [owner, repo] = repoUrl.split('/');
-		const repoEventsEl = domify`<div class="alert">`;
-		const repoEventsListEl = domify`<div class="body">`;
+		const repoEventsEl = domifyEscape`<div class="alert">`;
+		const repoEventsListEl = domifyEscape`<div class="body">`;
 
 		repoEventsEl.classList.add(`ghcf-repo`);
 		repoEventsEl.classList.add(`ghcf-repo-user-${owner}`);
@@ -99,12 +99,12 @@ function apply(options, insertionPoint) {
 		Array.from(events).forEach((event, i) => {
 			let el;
 			if (i === 0) {
-				el = domify`
+				el = domify(`
 					<div class="simple">
 						${icons[event.type]}
 						<div class="title"></div>
 					</div>
-				`;
+				`);
 				event.repoEl.textContent = '';
 				event.repoEl.appendChild(domifyEscape`${owner}/<strong>${repo}</strong>`);
 				el.querySelector('.title').appendChild(event.repoEl);
@@ -112,13 +112,13 @@ function apply(options, insertionPoint) {
 			}
 
 			if (events.size > 1) {
-				el = domify`
+				el = domify(`
 					<div class="simple">
 						${icons[event.type] ? icons[event.type] : ''}
 						<div class="title">
 						</div>
 					</div>
-				`;
+				`);
 			} else {
 				el.classList.add(`ghcf-event`);
 				el.classList.add(`ghcf-actor-user-${event.actorEl.textContent}`);
@@ -127,7 +127,7 @@ function apply(options, insertionPoint) {
 			el.classList.add(`ghcf-repo-user-${owner}`);
 			el.classList.add(`ghcf-repo-name-${repo}`);
 
-			const detailsEl = domify`<span class="ghcf-details">`;
+			const detailsEl = domifyEscape`<span class="ghcf-details">`;
 			switch (event.type) {
 				case 'fork':
 					detailsEl.textContent = ` ${i18n('done_towards')} `;
