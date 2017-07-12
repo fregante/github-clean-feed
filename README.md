@@ -1,8 +1,8 @@
-# GitHub Clean Feed  [![Chrome version][badge-cws]][link-cws] [![Firefox version][badge-amo]][link-amo] [![Autodeployment][badge-travis]][link-travis]
+# GitHub Clean Feed  [![Chrome version][badge-cws]][link-cws] [![Firefox version][badge-amo]][link-amo] [![deployment][badge-travis]][link-travis]
 
-  [badge-cws]: https://img.shields.io/chrome-web-store/v/failppjoidijbialknplliogdmabniaf.svg?label=for%20chrome
-  [badge-amo]: https://img.shields.io/amo/v/github-clean-feed.svg?label=for%20firefox
-  [badge-travis]: https://img.shields.io/travis/bfred-it/github-clean-feed/master.svg?label=autodeployment
+  [badge-cws]: https://img.shields.io/chrome-web-store/v/failppjoidijbialknplliogdmabniaf.svg?label=chrome
+  [badge-amo]: https://img.shields.io/amo/v/github-clean-feed.svg?label=firefox
+  [badge-travis]: https://img.shields.io/travis/bfred-it/github-clean-feed/master.svg?label=deployment
   [link-cws]: https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf "Version published on Chrome Web Store"
   [link-amo]: https://addons.mozilla.org/en-US/firefox/addon/github-clean-feed/ "Version published on Mozilla Add-ons"
   [link-travis]: https://travis-ci.org/bfred-it/github-clean-feed
