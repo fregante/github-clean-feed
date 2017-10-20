@@ -1,4 +1,4 @@
-# GitHub Clean Feed  [![Chrome version][badge-cws]][link-cws] [![Firefox version][badge-amo]][link-amo] [![deployment][badge-travis]][link-travis]
+# GitHub Clean Feed (Deprecated) [![Chrome version][badge-cws]][link-cws] [![Firefox version][badge-amo]][link-amo] [![deployment][badge-travis]][link-travis]
 
   [badge-cws]: https://img.shields.io/chrome-web-store/v/failppjoidijbialknplliogdmabniaf.svg?label=chrome
   [badge-amo]: https://img.shields.io/amo/v/github-clean-feed.svg?label=firefox
@@ -6,6 +6,8 @@
   [link-cws]: https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf "Version published on Chrome Web Store"
   [link-amo]: https://addons.mozilla.org/en-US/firefox/addon/github-clean-feed/ "Version published on Mozilla Add-ons"
   [link-travis]: https://travis-ci.org/bfred-it/github-clean-feed
+  
+## Current GitHub changes don't show enough content to make this extension worthwhile
 
 > Group news feed events by repo. [Download for Chrome](https://chrome.google.com/webstore/detail/github-clean-feed/failppjoidijbialknplliogdmabniaf) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/github-clean-feed/)
 
